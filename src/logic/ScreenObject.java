@@ -1,25 +1,73 @@
 package logic;
 
 public abstract class ScreenObject implements IRenderable{
-	private double x;
-	private double y;
-	private int maxHp;
-	private int hp;
-	private double speedX;
-	private double speedY;
+	protected double x;
+	protected double y;
+	protected int maxHp;
+	protected int hp;
+	protected double speedX;
+	protected double speedY;
+	protected double accelX;
+	protected double accelY;
 	private boolean isDestroyed;
+	private boolean isVisible;
 	
-	public ScreenObject(double x,double y,double speedX,double speedY,int maxHp)
+	public ScreenObject(double x,double y,double speedX,double speedY,double accelX,double accelY,int maxHp)
 	{
 		this.x = x;
 		this.y = y;
 		this.speedX = speedX;
 		this.speedY = speedY;
+		this.accelX = accelX;
+		this.accelY = accelY;
 
 		this.maxHp = maxHp;
 		this.hp = this.maxHp;
 		this.isDestroyed = false;
+		this.isVisible = true;
 	}
+	
+	public ScreenObject(double x,double y,double speedX,double speedY,double accelX,double accelY)
+	{
+		this.x = x;
+		this.y = y;
+		this.speedX = speedX;
+		this.speedY = speedY;
+		this.accelX = accelX;
+		this.accelY = accelY;
+
+		this.isDestroyed = false;
+		this.isVisible = true;
+	}
+	
+	public ScreenObject(double x,double y,double speedX,double speedY ,int maxHp)
+	{
+		this.x = x;
+		this.y = y;
+		this.speedX = speedX;
+		this.speedY = speedY;
+		this.accelX = 0;
+		this.accelY = 0;
+		
+		this.maxHp = maxHp;
+		this.hp = this.maxHp;
+		this.isDestroyed = false;
+		this.isVisible = true;
+	}
+	
+	public ScreenObject(double x,double y,double speedX,double speedY)
+	{
+		this.x = x;
+		this.y = y;
+		this.speedX = speedX;
+		this.speedY = speedY;
+		this.accelX = 0;
+		this.accelY = 0;
+		
+		this.isDestroyed = false;
+		this.isVisible = true;
+	}
+
 	
 	public int getX()
 	{
@@ -31,15 +79,22 @@ public abstract class ScreenObject implements IRenderable{
 		return (int) y;
 	}
 	
+	public int getZ()
+	{
+		return 0;
+	}
+	
 	public void update()
 	{
 		x += speedX;
 		y += speedY;
+		speedX += accelX;
+		speedY += accelY;
 	}
 	
 	public boolean isVisible()
 	{
-		return isDestroyed;
+		return isVisible;
 	}
 
 }
