@@ -69,6 +69,35 @@ public abstract class ScreenObject implements IRenderable{
 	}
 
 	
+	public ScreenObject(double x,double y)
+	{
+		// TODO Auto-generated constructor stub
+		this.x = x;
+		this.y = y;
+		this.speedX = 0;
+		this.speedY = 0;
+		this.accelX = 0;
+		this.accelY = 0;
+		
+		this.isDestroyed = false;
+		this.isVisible = true;
+	}
+	
+	public ScreenObject()
+	{
+		this.x = 0;
+		this.y = 0;
+		this.speedX = 0;
+		this.speedY = 0;
+		this.accelX = 0;
+		this.accelY = 0;
+		
+		this.isDestroyed = false;
+		this.isVisible = true;
+	}
+	
+	
+
 	public int getX()
 	{
 		return (int) x;
