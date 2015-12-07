@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -7,7 +8,9 @@ import logic.IRenderable;
 import res.Resource;
 
 public class GameBackground implements IRenderable {
-	
+
+	public static final AlphaComposite transcluentBlack = AlphaComposite.getInstance(AlphaComposite.SRC_IN, 0.3f);
+	public static final AlphaComposite opaque = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 	private BufferedImage bgImage = null;
 	private int currentX = 0;
 	private int imageWidth;
@@ -22,10 +25,16 @@ public class GameBackground implements IRenderable {
 	}
 	
 	public void updateBackground(){
-		currentX += 1;
+		currentX++;
 		if(currentX >= imageWidth){
 			currentX = 0;
 		}
+	}
+	
+	@Override
+	public boolean isVisible() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override
@@ -35,23 +44,23 @@ public class GameBackground implements IRenderable {
 	}
 
 	@Override
-	public void draw(Graphics2D g2d) {
+	public void draw(Graphics2D g2) {
 		// TODO Auto-generated method stub
 		if(bgImage == null) return;
 		int currentDrawingX = 0;
 		int currentDrawingY = 0;
 		
-		while(currentDrawingY < GameTitle.screenHeight){
-			g2d.drawImage(bgImage.getSubimage(currentX, 0, imageWidth-currentX, bgImage.getHeight()),
+		while(currentDrawingY < GameWindow.screenHeight){
+			g2.drawImage(bgImage.getSubimage(currentX, 0, imageWidth-currentX, bgImage.getHeight()),
 					null, currentDrawingX, currentDrawingY);
 			currentDrawingY += bgImage.getHeight();
 		}
 		currentDrawingX += imageWidth - currentX;
 		currentDrawingY = 0;
 		
-		while(currentDrawingX < GameTitle.screenWidth){
-			while(currentDrawingY < GameTitle.screenHeight){
-				g2d.drawImage(bgImage, null, currentDrawingX, currentDrawingY);
+		while(currentDrawingX < GameWindow.screenWidth){
+			while(currentDrawingY < GameWindow.screenHeight){
+				g2.drawImage(bgImage, null, currentDrawingX, currentDrawingY);
 				currentDrawingY += bgImage.getHeight();
 			}
 			currentDrawingX += imageWidth;
@@ -59,10 +68,5 @@ public class GameBackground implements IRenderable {
 		}
 	}
 
-	@Override
-	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
+	
 }
