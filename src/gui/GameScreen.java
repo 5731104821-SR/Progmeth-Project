@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
@@ -14,17 +16,35 @@ import res.Resource;
 public class GameScreen extends JPanel{
 	
 	private GameBackground gameBackground;
-	private RenderableHolder holder;
 	private int startDelayCounter = 0;
 	private int startDelay = 60;
 	private int countDownNumber = 4;
-	private boolean isStart = false;
+	public static boolean isStart = false;
 	
-	public GameScreen(RenderableHolder renderableHolder) {
+	public GameScreen() {
 		this.setPreferredSize(new Dimension(GameWindow.screenWidth , GameWindow.screenHeight));
 		gameBackground = new GameBackground();
-		this.holder = renderableHolder;
-		setDoubleBuffered(true);
+		//setDoubleBuffered(true);
+		this.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				InputUtility.setKeyPressed(e.getKeyCode(), true);
+			}
+		});
 	}
 	
 	@Override
@@ -62,11 +82,9 @@ public class GameScreen extends JPanel{
 		if(isStart){
 			g2d.clearRect(0, 0, GameWindow.screenWidth, GameWindow.screenHeight);
 			gameBackground.draw(g2d);
-			g2d.drawImage(Resource.character, null, 30, 220);
+			gameBackground.updateBackground();
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
-				if(object.isVisible()) {
-					object.draw(g2d);
-				}
+				object.draw(g2d);
 			}
 		}
 	}

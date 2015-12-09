@@ -1,6 +1,7 @@
 import gui.GameManager;
 import gui.GameTitle;
 import gui.GameWindow;
+import logic.GameLogic;
 
 public class Main {
 
