@@ -4,30 +4,53 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import res.Resource;
 
-public class GameTitle extends JComponent{
+public class GameTitle extends JPanel{
 	
-	public static final int screenWidth = 800;
-	public static final int screenHeight = 600;
 	private GameBackground gameBackground;
 	
 	public GameTitle() {
-		this.setPreferredSize(new Dimension(800,600));
+		this.setPreferredSize(new Dimension(GameWindow.SCREEN_WIDTH,GameWindow.SCREEN_HEIGHT));
 		gameBackground = new GameBackground();
+		
+		this.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getKeyCode()==KeyEvent.VK_ENTER){
+					GameManager.newGame();
+				}
+			}
+		});
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
 		
-		g2d.clearRect(0, 0, 800, 600);
-		gameBackground.draw(g2d);
+		g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 		gameBackground.updateBackground();
+		gameBackground.draw(g2d);
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(Resource.titleFont);
 		g2d.drawString("PRESS ENTER TO START", 150, 500);

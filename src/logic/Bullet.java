@@ -1,5 +1,10 @@
 package logic;
 
+<<<<<<< HEAD
+=======
+import java.awt.Graphics2D;
+
+>>>>>>> a766d2a2ca3c92d1acdbd48e2e6d8bd5cb367052
 public class Bullet extends ScreenObject{
 
 	private Character shooter;
@@ -50,9 +55,32 @@ public class Bullet extends ScreenObject{
 		else this.speedY = -(bulletSpeed * Math.sin(theta));
 	}
 	
+<<<<<<< HEAD
+=======
+	@Override
+	public void update()
+	{
+		x += speedX;
+		y += speedY;
+		//speedX += accelX;
+		//speedY += accelY;
+	}
+	
+>>>>>>> a766d2a2ca3c92d1acdbd48e2e6d8bd5cb367052
 	public void hit()
 	{
 		
 	}
+<<<<<<< HEAD
 	
 }
+=======
+
+	@Override
+	public void draw(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		g2d.fillOval((int)this.x, (int)this.y, 10, 20);
+	}
+	
+}
+>>>>>>> a766d2a2ca3c92d1acdbd48e2e6d8bd5cb367052
