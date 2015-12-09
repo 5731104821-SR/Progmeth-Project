@@ -1,4 +1,7 @@
 package gui;
+
+import logic.RenderableHolder;
+
 public class GameManager {
 		
 		private static GameTitle gameTitle;
@@ -8,7 +11,7 @@ public class GameManager {
 		public static void runGame(){
 			gameTitle = new GameTitle();
 			gameWindow = new GameWindow(gameTitle);
-			gameScreen = new GameScreen();
+			gameScreen = new GameScreen(RenderableHolder.getInstance());
 			
 			while(true) {
 				try {
@@ -17,7 +20,7 @@ public class GameManager {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				gameTitle.repaint();
+				gameWindow.repaint();
 			}
 		}
 		

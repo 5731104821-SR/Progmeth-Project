@@ -9,7 +9,7 @@ import res.Resource;
 
 public class GameBackground implements IRenderable {
 
-	public static final AlphaComposite transcluentBlack = AlphaComposite.getInstance(AlphaComposite.SRC_IN, 0.3f);
+	public static final AlphaComposite transcluentBlack = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
 	public static final AlphaComposite opaque = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 	private BufferedImage bgImage = null;
 	private int currentX = 0;
