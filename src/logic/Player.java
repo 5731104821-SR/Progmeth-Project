@@ -1,15 +1,5 @@
 package logic;
 
-<<<<<<< HEAD
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-
-public class Player extends Character {
-	
-	private final int defaultSpeedY = 10; // set it later
-	private double rotateDegree = 0;
-=======
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -20,10 +10,9 @@ import gui.InputUtility;
 
 public class Player extends Character {
 	
-	private final int defaultSpeedY = -15; // set it later
+	private final int defaultSpeedY = -7; // set it later
 	private double rotateDegree = 0;
 	
->>>>>>> a766d2a2ca3c92d1acdbd48e2e6d8bd5cb367052
 	public Player(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
 		// TODO Auto-generated constructor stub
@@ -35,23 +24,9 @@ public class Player extends Character {
 		
 	}
 	
-	
-<<<<<<< HEAD
-	@Override
-	public void update()
-	{
-		rotateDegree = speedY * 2; // set it later
-		if (InputUtility.getKeyPressed(VK_SPACE))
-		{
-			this.speedY = defaultSpeedY;
-		}
-		if (InputUtility.LeftMouseClick)
-		{
-			fire();
-		}
-=======
+
 	public void fire() {
-		Bullet b = new Bullet(this , 3 , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 ,0);
+		Bullet b = new Bullet(this , 10 , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 ,0);
 		RenderableHolder.getInstance().add(b);
 		GameLogic.bullets.add(b);
 	}
@@ -73,7 +48,6 @@ public class Player extends Character {
 		//speedX += accelX;
 		//speedY += accelY;
 		//rotateDegree = speedY * 2; // set it later
->>>>>>> a766d2a2ca3c92d1acdbd48e2e6d8bd5cb367052
 	}
 
 	@Override
@@ -85,13 +59,6 @@ public class Player extends Character {
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
-		AffineTransform a = new AffineTransform();
-		a.rotate(rotateDegree);
-	}
-	
-}
-=======
 		//AffineTransform a = new AffineTransform();
 		//a.rotate(rotateDegree);
 		g2d.setColor(Color.RED);
@@ -99,4 +66,3 @@ public class Player extends Character {
 	}
 }
 	
->>>>>>> a766d2a2ca3c92d1acdbd48e2e6d8bd5cb367052

@@ -8,7 +8,7 @@ import res.Resource;
 public class GameLogic {
 
 	private static GameLogic instance = new GameLogic();
-	protected Player player = new Player(30,30,0,0,0,1,1,Resource.character);
+	protected Player player = new Player(60,60,0,0,0,0.25,1,Resource.character);
 	protected static List<Bullet> bullets = new CopyOnWriteArrayList<>();
 	private static final int SPAWN_DELAY = 100;
 	private int spawnDelayCounter = 0;

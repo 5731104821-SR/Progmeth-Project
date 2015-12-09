@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -71,18 +72,32 @@ public class GameScreen extends JPanel{
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				InputUtility.setMouseOnScreen(false);
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				InputUtility.setMouseOnScreen(true);
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
+			}
+		});
+		this.addMouseMotionListener(new MouseAdapter()
+		{
+			public void mouseMoved(MouseEvent e)
+			{
+				InputUtility.setMouseX(e.getX());
+				InputUtility.setMouseY(e.getY());
+				
+			}
+			public void mouseDragged(MouseEvent e)
+			{
+				InputUtility.setMouseX(e.getX());
+				InputUtility.setMouseY(e.getY());
 			}
 		});
 	}

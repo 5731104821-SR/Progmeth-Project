@@ -1,14 +1,11 @@
 package logic;
 
-<<<<<<< HEAD
-=======
+
 import java.awt.Graphics2D;
 
->>>>>>> a766d2a2ca3c92d1acdbd48e2e6d8bd5cb367052
 public class Bullet extends ScreenObject{
 
 	private Character shooter;
-	private double bulletSpeed; // the initialize bullet speed
 	
 	public Bullet(double x, double y, double speedX, double speedY, double accelX, double accelY,Character shooter, double bulletSpeed) {
 		super(x, y, speedX, speedY, accelX, accelY);
@@ -26,37 +23,62 @@ public class Bullet extends ScreenObject{
 		this.shooter = shooter;
 	}
 	
-	public Bullet(Character shooter, double bulletSpeed, double targetX,double targetY, double accelX, double accelY) // use this
-	// this will shoot the bullet from shooter to target position
+	public Bullet(Character shooter, double bulletSpeed, double targetX,double targetY, double accelX, double accelY) 
+	// this will shoot the bullet from shooter to target position with custom acceleration (for making parabola curve attack)
 	{
 		super();
 		this.shooter = shooter;
 		this.x = shooter.x;
 		this.y = shooter.y;
-		this.bulletSpeed = bulletSpeed;
+		calculateSpeed(shooter.x, shooter.y, targetX, targetY, bulletSpeed, 0);
+		
 		this.accelX = accelX;
 		this.accelY = accelY;
 		
+	}
+	
+	public Bullet(Character shooter, double bulletSpeed, double targetX,double targetY, double bulletAccel) // use this
+	// this will shoot the bullet from shooter to target position with fixed direction acceleration
+	{
+		super();
+		this.shooter = shooter;
+		this.x = shooter.x;
+		this.y = shooter.y;
+		calculateSpeed(shooter.x, shooter.y, targetX, targetY, bulletSpeed, bulletAccel);
+		
+	}
+	
+	private void calculateSpeed(double initX,double initY,double targetX,double targetY,double bulletSpeed,double bulletAccel)
+	{
 		// calculate initial speedX and speedY from shooter position, target position and bullet speed
 		double theta; // angle between shooter position and target point position
-		if (shooter.x != targetX) theta = Math.atan((shooter.y - targetY)/(targetX - shooter.x)); // don't forget that the x,y system of Java graphic is different from Math x,y co-ordinate
+		if (initX != targetX) theta = Math.atan((initY - targetY)/(targetX - initX)); // don't forget that the x,y system of Java graphic is different from Math x,y co-ordinate
 		else theta = (Math.PI)/2; // tan(theta) = infinity when divided by ZERO! Then theta = 90 or 270 degree
 		// since arctan function have range only from pi/2 to -pi/2, we will have to find the REAL direction later
 		// I mean, there will be a case that theta is more than pi/2 or less than -pi/2 (when you shoot from right to left)
-		if (shooter.x < targetX)
+		System.out.println("degree = " + theta);
+		if (initX < targetX)
 		{
 			this.speedX = bulletSpeed * Math.cos(theta);
+			this.accelX = bulletAccel * Math.cos(theta);
 		}
-		else this.speedX = -(bulletSpeed * Math.cos(theta));
-		if (shooter.y > targetY)
+		else
+		{
+			this.speedX = -(bulletSpeed * Math.cos(theta));
+			this.accelX = -bulletAccel * Math.cos(theta);
+		}
+		if (initX > targetX)
 		{
 			this.speedY = bulletSpeed * Math.sin(theta);
+			this.accelY = bulletSpeed * Math.sin(theta);
 		}
-		else this.speedY = -(bulletSpeed * Math.sin(theta));
+		else 
+		{
+			this.speedY = -bulletSpeed * Math.sin(theta);
+			this.accelY = -bulletAccel * Math.sin(theta);
+		}
 	}
 	
-<<<<<<< HEAD
-=======
 	@Override
 	public void update()
 	{
@@ -66,16 +88,11 @@ public class Bullet extends ScreenObject{
 		//speedY += accelY;
 	}
 	
->>>>>>> a766d2a2ca3c92d1acdbd48e2e6d8bd5cb367052
 	public void hit()
 	{
 		
 	}
-<<<<<<< HEAD
 	
-}
-=======
-
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
@@ -83,4 +100,3 @@ public class Bullet extends ScreenObject{
 	}
 	
 }
->>>>>>> a766d2a2ca3c92d1acdbd48e2e6d8bd5cb367052
