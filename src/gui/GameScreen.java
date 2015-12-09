@@ -30,19 +30,22 @@ public class GameScreen extends JPanel{
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+				InputUtility.setKeyPressed(e.getKeyCode(), false);
+				InputUtility.setKeyTriggered(e.getKeyCode(),false);
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				InputUtility.setKeyPressed(e.getKeyCode(), true);
+				if(!InputUtility.getKeyPressed(KeyEvent.VK_SPACE)){
+					InputUtility.setKeyPressed(e.getKeyCode(), true);
+					InputUtility.setKeyTriggered(e.getKeyCode(),true);
+				}
 			}
 		});
 	}
@@ -56,7 +59,7 @@ public class GameScreen extends JPanel{
 			g2d.clearRect(0, 0, GameWindow.screenWidth, GameWindow.screenHeight);
 			g2d.setComposite(gameBackground.transcluentBlack);
 			gameBackground.draw(g2d);
-			g2d.drawImage(Resource.character, null, 30, 220);
+			g2d.drawImage(Resource.character, null, 30, 30);
 			g2d.setComposite(gameBackground.opaque);
 			if(startDelayCounter < startDelay && countDownNumber==4){
 				startDelayCounter++;

@@ -116,7 +116,7 @@ public abstract class ScreenObject implements IRenderable{
 	public void update()
 	{
 		x += speedX;
-		y += speedY;
+		y += speedY/2;
 		speedX += accelX;
 		speedY += accelY;
 	}

@@ -9,10 +9,8 @@ import gui.InputUtility;
 
 public class Player extends Character {
 	
-	private final int defaultSpeedY = -30; // set it later
+	private final int defaultSpeedY = -15; // set it later
 	private double rotateDegree = 0;
-	private int delay = 0;
-	private int delayCounter = 0;
 	
 	public Player(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
@@ -33,7 +31,7 @@ public class Player extends Character {
 	@Override
 	public void update()
 	{
-		if (InputUtility.getKeyPressed(KeyEvent.VK_SPACE))
+		if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE))
 		{
 			this.speedY = defaultSpeedY;
 		}
@@ -41,17 +39,11 @@ public class Player extends Character {
 		{
 			fire();
 		}
-		if(delayCounter < delay) {
-			delayCounter++;
-		}
-		else{
-			x += speedX;
-			y += speedY/3;
-			speedX += accelX;
-			speedY += accelY;
-			//rotateDegree = speedY * 2; // set it later
-			delayCounter = 0;	
-		}
+		x += speedX;
+		y += speedY/2;
+		speedX += accelX;
+		speedY += accelY;
+		//rotateDegree = speedY * 2; // set it later
 	}
 
 	@Override

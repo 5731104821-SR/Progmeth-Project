@@ -28,8 +28,8 @@ public class GameManager {
 				if(gameScreen.isStart){
 					gameLogic.logicUpdate();
 				}
-				if(InputUtility.getKeyPressed(KeyEvent.VK_SPACE)){
-					InputUtility.setKeyPressed(KeyEvent.VK_SPACE , false);
+				if(InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)){
+					InputUtility.setKeyTriggered(KeyEvent.VK_SPACE , false);
 				}
 			}
 		}
