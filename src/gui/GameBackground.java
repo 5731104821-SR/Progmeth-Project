@@ -50,7 +50,7 @@ public class GameBackground implements IRenderable {
 		int currentDrawingX = 0;
 		int currentDrawingY = 0;
 		
-		while(currentDrawingY < GameWindow.screenHeight){
+		while(currentDrawingY < GameWindow.SCREEN_HEIGHT){
 			g2.drawImage(bgImage.getSubimage(currentX, 0, imageWidth-currentX, bgImage.getHeight()),
 					null, currentDrawingX, currentDrawingY);
 			currentDrawingY += bgImage.getHeight();
@@ -58,8 +58,8 @@ public class GameBackground implements IRenderable {
 		currentDrawingX += imageWidth - currentX;
 		currentDrawingY = 0;
 		
-		while(currentDrawingX < GameWindow.screenWidth){
-			while(currentDrawingY < GameWindow.screenHeight){
+		while(currentDrawingX < GameWindow.SCREEN_WIDTH){
+			while(currentDrawingY < GameWindow.SCREEN_HEIGHT){
 				g2.drawImage(bgImage, null, currentDrawingX, currentDrawingY);
 				currentDrawingY += bgImage.getHeight();
 			}

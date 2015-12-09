@@ -31,6 +31,9 @@ public class GameManager {
 				if(InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)){
 					InputUtility.setKeyTriggered(KeyEvent.VK_SPACE , false);
 				}
+				if(InputUtility.isMouseLeftClicked()){
+					InputUtility.setMouseLeftTriggered(false);
+				}
 			}
 		}
 		

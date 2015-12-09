@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
@@ -25,7 +26,9 @@ public class Player extends Character {
 	
 	
 	public void fire() {
-	//	new Bullet(this , bulletSpeed , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 ,0);
+		Bullet b = new Bullet(this , 3 , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 ,0);
+		RenderableHolder.getInstance().add(b);
+		GameLogic.bullets.add(b);
 	}
 	
 	@Override
@@ -57,6 +60,7 @@ public class Player extends Character {
 		// TODO Auto-generated method stub
 		//AffineTransform a = new AffineTransform();
 		//a.rotate(rotateDegree);
+		g2d.setColor(Color.RED);
 		g2d.drawImage(this.getImage(), null, (int)this.x, (int)this.y);
 	}
 }

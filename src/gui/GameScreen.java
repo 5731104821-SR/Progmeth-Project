@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
@@ -22,7 +24,7 @@ public class GameScreen extends JPanel{
 	public static boolean isStart = false;
 	
 	public GameScreen() {
-		this.setPreferredSize(new Dimension(GameWindow.screenWidth , GameWindow.screenHeight));
+		this.setPreferredSize(new Dimension(GameWindow.SCREEN_WIDTH , GameWindow.SCREEN_HEIGHT));
 		gameBackground = new GameBackground();
 		//setDoubleBuffered(true);
 		this.addKeyListener(new KeyListener() {
@@ -48,6 +50,41 @@ public class GameScreen extends JPanel{
 				}
 			}
 		});
+		this.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				InputUtility.setMouseLeftDown(false);
+				InputUtility.setMouseLeftTriggered(false);
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(!InputUtility.isMouseLeftDown()){
+					InputUtility.setMouseLeftDown(true);
+					InputUtility.setMouseLeftTriggered(true);
+				}
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
 	}
 	
 	@Override
@@ -56,7 +93,7 @@ public class GameScreen extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		
 		if(!isStart){
-			g2d.clearRect(0, 0, GameWindow.screenWidth, GameWindow.screenHeight);
+			g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 			g2d.setComposite(gameBackground.transcluentBlack);
 			gameBackground.draw(g2d);
 			g2d.drawImage(Resource.character, null, 30, 30);
@@ -83,7 +120,7 @@ public class GameScreen extends JPanel{
 			}
 		}
 		if(isStart){
-			g2d.clearRect(0, 0, GameWindow.screenWidth, GameWindow.screenHeight);
+			g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 			gameBackground.draw(g2d);
 			gameBackground.updateBackground();
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {

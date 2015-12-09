@@ -16,7 +16,7 @@ public class GameTitle extends JPanel{
 	private GameBackground gameBackground;
 	
 	public GameTitle() {
-		this.setPreferredSize(new Dimension(GameWindow.screenWidth,GameWindow.screenHeight));
+		this.setPreferredSize(new Dimension(GameWindow.SCREEN_WIDTH,GameWindow.SCREEN_HEIGHT));
 		gameBackground = new GameBackground();
 		
 		this.addKeyListener(new KeyListener() {
@@ -48,7 +48,7 @@ public class GameTitle extends JPanel{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
 		
-		g2d.clearRect(0, 0, GameWindow.screenWidth, GameWindow.screenHeight);
+		g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 		gameBackground.updateBackground();
 		gameBackground.draw(g2d);
 		g2d.setColor(Color.WHITE);

@@ -52,6 +52,15 @@ public class Bullet extends ScreenObject{
 		else this.speedY = -(bulletSpeed * Math.sin(theta));
 	}
 	
+	@Override
+	public void update()
+	{
+		x += speedX;
+		y += speedY;
+		//speedX += accelX;
+		//speedY += accelY;
+	}
+	
 	public void hit()
 	{
 		
@@ -60,7 +69,7 @@ public class Bullet extends ScreenObject{
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		
+		g2d.fillOval((int)this.x, (int)this.y, 10, 20);
 	}
 	
 }
