@@ -34,6 +34,7 @@ public class Player extends Character {
 	@Override
 	public void update()
 	{
+		super.update();
 		if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE))
 		{
 			this.speedY = defaultSpeedY;
@@ -42,10 +43,10 @@ public class Player extends Character {
 		{
 			fire();
 		}
-		x += speedX;
-		y += speedY/2;
-		speedX += accelX;
-		speedY += accelY;
+		//x += speedX;
+		//y += speedY/2;
+		//speedX += accelX;
+		//speedY += accelY;
 		//rotateDegree = speedY * 2; // set it later
 	}
 
