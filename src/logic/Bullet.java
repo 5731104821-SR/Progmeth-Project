@@ -2,31 +2,32 @@ package logic;
 
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 public class Bullet extends ScreenObject{
 
 	private Character shooter;
 	
-	public Bullet(double x, double y, double speedX, double speedY, double accelX, double accelY,Character shooter, double bulletSpeed) {
-		super(x, y, speedX, speedY, accelX, accelY);
+	public Bullet(double x, double y, double speedX, double speedY, double accelX, double accelY,Character shooter, double bulletSpeed , BufferedImage image) {
+		super(x, y, speedX, speedY, accelX, accelY ,image);
 		// TODO Auto-generated constructor stub
 		this.maxHp = 1;
 		this.hp = 1;
 		this.shooter = shooter;
 	}
 
-	public Bullet(double x, double y, double speedX, double speedY, Character shooter) {
-		super(x, y, speedX, speedY);
+	public Bullet(double x, double y, double speedX, double speedY, Character shooter , BufferedImage image) {
+		super(x, y, speedX, speedY ,image);
 		// TODO Auto-generated constructor stub
 		this.maxHp = 1;
 		this.hp = 1;
 		this.shooter = shooter;
 	}
 	
-	public Bullet(Character shooter, double bulletSpeed, double targetX,double targetY, double accelX, double accelY) 
+	public Bullet(Character shooter, double bulletSpeed, double targetX,double targetY, double accelX, double accelY , BufferedImage image) 
 	// this will shoot the bullet from shooter to target position with custom acceleration (for making parabola curve attack)
 	{
-		super();
+		super(image);
 		this.shooter = shooter;
 		this.x = shooter.x;
 		this.y = shooter.y;
@@ -37,10 +38,10 @@ public class Bullet extends ScreenObject{
 		
 	}
 	
-	public Bullet(Character shooter, double bulletSpeed, double targetX,double targetY, double bulletAccel) // use this
+	public Bullet(Character shooter, double bulletSpeed, double targetX,double targetY, double bulletAccel , BufferedImage image) // use this
 	// this will shoot the bullet from shooter to target position with fixed direction acceleration
 	{
-		super();
+		super(image);
 		this.shooter = shooter;
 		this.x = shooter.x;
 		this.y = shooter.y;
@@ -82,10 +83,7 @@ public class Bullet extends ScreenObject{
 	@Override
 	public void update()
 	{
-		x += speedX;
-		y += speedY;
-		//speedX += accelX;
-		//speedY += accelY;
+		super.update();
 	}
 	
 	public void hit()
@@ -96,7 +94,7 @@ public class Bullet extends ScreenObject{
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.fillOval((int)this.x, (int)this.y, 10, 20);
+		g2d.drawImage(this.getImage(), null, (int)this.x + 25, (int)this.y + 25);
 	}
 	
 }

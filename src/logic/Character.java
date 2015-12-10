@@ -3,27 +3,20 @@ package logic;
 import java.awt.image.BufferedImage;
 
 public abstract class Character extends ScreenObject {
-	
-	private BufferedImage image;
-	
+
 	public Character(double x, double y, double speedX, double speedY, int maxHp, BufferedImage image) {
-		super(x, y, speedX, speedY, maxHp);
+		super(x, y, speedX, speedY, maxHp , image);
 		// TODO Auto-generated constructor stub
-		
-		this.image = image;
 	}
 
 	public Character(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, BufferedImage image) {
-		super(x, y, speedX, speedY, accelX, accelY, maxHp);
+		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
 		// TODO Auto-generated constructor stub
-		
-		this.image = image;
 	}
 	
-	
-	public BufferedImage getImage()
-	{
-		return image;
+	public void dead(){
+		this.isDestroyed = true;
+		GameLogic.getInstance().enemyCount++;
+		System.out.println(GameLogic.getInstance().enemyCount);
 	}
-	
 }

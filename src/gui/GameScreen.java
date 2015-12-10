@@ -20,14 +20,15 @@ public class GameScreen extends JPanel{
 	
 	private GameBackground gameBackground;
 	private int startDelayCounter = 0;
-	private int startDelay = 60;
+	private int startDelay = 30;
 	private int countDownNumber = 4;
 	public static boolean isStart = false;
+	public static boolean isPaused = false;
 	
 	public GameScreen() {
 		this.setPreferredSize(new Dimension(GameWindow.SCREEN_WIDTH , GameWindow.SCREEN_HEIGHT));
 		gameBackground = new GameBackground();
-		//setDoubleBuffered(true);
+		setDoubleBuffered(true);
 		this.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -45,7 +46,7 @@ public class GameScreen extends JPanel{
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				if(!InputUtility.getKeyPressed(KeyEvent.VK_SPACE)){
+				if(!InputUtility.getKeyPressed(KeyEvent.VK_SPACE) && isStart){
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
 					InputUtility.setKeyTriggered(e.getKeyCode(),true);
 				}
@@ -63,7 +64,7 @@ public class GameScreen extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				if(!InputUtility.isMouseLeftDown()){
+				if(!InputUtility.isMouseLeftDown() && isStart){
 					InputUtility.setMouseLeftDown(true);
 					InputUtility.setMouseLeftTriggered(true);
 				}
@@ -111,7 +112,7 @@ public class GameScreen extends JPanel{
 			g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 			g2d.setComposite(gameBackground.transcluentBlack);
 			gameBackground.draw(g2d);
-			g2d.drawImage(Resource.character, null, 30, 30);
+			g2d.drawImage(Resource.character.getSubimage(0, 0, 70, 70), null, 60, 60);
 			g2d.setComposite(gameBackground.opaque);
 			if(startDelayCounter < startDelay && countDownNumber==4){
 				startDelayCounter++;
@@ -137,7 +138,7 @@ public class GameScreen extends JPanel{
 		if(isStart){
 			g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 			gameBackground.draw(g2d);
-			gameBackground.updateBackground();
+			gameBackground.update();
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
 				object.draw(g2d);
 			}

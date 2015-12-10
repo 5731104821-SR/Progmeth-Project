@@ -27,6 +27,7 @@ public class GameManager {
 				gameWindow.repaint();
 				if(gameScreen.isStart){
 					gameLogic.logicUpdate();
+					
 				}
 				if(InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)){
 					InputUtility.setKeyTriggered(KeyEvent.VK_SPACE , false);
