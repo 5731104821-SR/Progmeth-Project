@@ -24,7 +24,7 @@ public class GameBackground implements IRenderable {
 		}
 	}
 	
-	public void updateBackground(){
+	public void update(){
 		currentX++;
 		if(currentX >= imageWidth){
 			currentX = 0;
@@ -40,7 +40,7 @@ public class GameBackground implements IRenderable {
 	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub
-		return Integer.MIN_VALUE;
+		return Integer.MAX_VALUE;
 	}
 
 	@Override

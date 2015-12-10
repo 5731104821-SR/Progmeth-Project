@@ -7,6 +7,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import gui.InputUtility;
+import res.Resource;
 
 public class Player extends Character {
 	
@@ -24,11 +25,14 @@ public class Player extends Character {
 		
 	}
 	
-
-	public void fire() {
-		Bullet b = new Bullet(this , 10 , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 ,0);
+	public void shoot() {
+		Bullet b = new Bullet(this , 10 , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 ,0 , Resource.bullet_cake);
 		RenderableHolder.getInstance().add(b);
-		GameLogic.bullets.add(b);
+		GameLogic.screenObjects.add(b);
+	}
+	
+	public void hit(){
+		
 	}
 	
 	@Override
@@ -38,15 +42,12 @@ public class Player extends Character {
 		if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE))
 		{
 			this.speedY = defaultSpeedY;
+			//System.out.println("jump");
 		}
 		if (InputUtility.isMouseLeftClicked())
 		{
-			fire();
+			shoot();
 		}
-		//x += speedX;
-		//y += speedY/2;
-		//speedX += accelX;
-		//speedY += accelY;
 		//rotateDegree = speedY * 2; // set it later
 	}
 
@@ -61,7 +62,6 @@ public class Player extends Character {
 		// TODO Auto-generated method stub
 		//AffineTransform a = new AffineTransform();
 		//a.rotate(rotateDegree);
-		g2d.setColor(Color.RED);
 		g2d.drawImage(this.getImage(), null, (int)this.x, (int)this.y);
 	}
 }

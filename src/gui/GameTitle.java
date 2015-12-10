@@ -49,8 +49,9 @@ public class GameTitle extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		
 		g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
-		gameBackground.updateBackground();
+		gameBackground.update();
 		gameBackground.draw(g2d);
+		g2d.drawImage(Resource.logo, null, 75, 20);
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(Resource.titleFont);
 		g2d.drawString("PRESS ENTER TO START", 150, 500);

@@ -1,7 +1,4 @@
 import gui.GameManager;
-import gui.GameTitle;
-import gui.GameWindow;
-import logic.GameLogic;
 
 public class Main {
 
@@ -9,5 +6,5 @@ public class Main {
 		// TODO Auto-generated method stub
 		GameManager.runGame();
 	}
-
 }
+
