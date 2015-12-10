@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
+import gui.GameWindow;
 import gui.InputUtility;
 import res.Resource;
 
@@ -13,16 +14,20 @@ public class Player extends Character {
 	
 	private final int defaultSpeedY = -7; // set it later
 	private double rotateDegree = 0;
+	private int currentFrame , frameWidth ,frameDelayCounter;
+	private final int frameDelay = 10; 
 	
 	public Player(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
 		// TODO Auto-generated constructor stub
+		this.currentFrame = 0;
+		this.frameWidth = image.getWidth()/4;
+		this.frameDelayCounter = 0;
 	}
 
 	public Player(double x, double y, double speedX, double speedY, int maxHp, BufferedImage image) {
 		super(x, y, speedX, speedY, maxHp, image);
 		// TODO Auto-generated constructor stub
-		
 	}
 	
 	public void shoot() {
@@ -39,6 +44,12 @@ public class Player extends Character {
 	public void update()
 	{
 		super.update();
+		if(this.y < 0){
+			this.y = 0;
+		}
+		if(this.y > GameWindow.SCREEN_HEIGHT-100){
+			this.y = GameWindow.SCREEN_HEIGHT-100;
+		}
 		if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE))
 		{
 			this.speedY = defaultSpeedY;
@@ -48,6 +59,15 @@ public class Player extends Character {
 		{
 			shoot();
 		}
+		if(frameDelayCounter < frameDelay){
+			frameDelayCounter++;
+			return;
+		}
+		currentFrame++;
+		if(currentFrame == 4){
+			currentFrame = 0;
+		}
+		frameDelayCounter = 0;
 		//rotateDegree = speedY * 2; // set it later
 	}
 
@@ -62,7 +82,7 @@ public class Player extends Character {
 		// TODO Auto-generated method stub
 		//AffineTransform a = new AffineTransform();
 		//a.rotate(rotateDegree);
-		g2d.drawImage(this.getImage(), null, (int)this.x, (int)this.y);
+		g2d.drawImage(getImage().getSubimage(frameWidth*currentFrame, 0, frameWidth, getImage().getHeight()), null, (int)this.x, (int)this.y);
 	}
 }
 	

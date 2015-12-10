@@ -29,7 +29,7 @@ public class Resource {
 			ClassLoader loader = Resource.class.getClassLoader();
 			try {
 				background = ImageIO.read(loader.getResource("res/PiggyBirdBG.png"));
-				character = ImageIO.read(loader.getResource("res/PiggyBirdChar2.gif"));
+				character = ImageIO.read(loader.getResource("res/PiggyBirdChar3.png"));
 				logo =  ImageIO.read(loader.getResource("res/Logo.png"));
 				lemon = ImageIO.read(loader.getResource("res/lemon.png"));
 				carrot = ImageIO.read(loader.getResource("res/carrot.png"));

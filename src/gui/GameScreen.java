@@ -112,7 +112,7 @@ public class GameScreen extends JPanel{
 			g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 			g2d.setComposite(gameBackground.transcluentBlack);
 			gameBackground.draw(g2d);
-			g2d.drawImage(Resource.character, null, 60, 60);
+			g2d.drawImage(Resource.character.getSubimage(0, 0, 70, 70), null, 60, 60);
 			g2d.setComposite(gameBackground.opaque);
 			if(startDelayCounter < startDelay && countDownNumber==4){
 				startDelayCounter++;
