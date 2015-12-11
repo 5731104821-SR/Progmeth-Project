@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class Bullet extends ScreenObject{
 
-	private Character shooter;
+	protected Character shooter;
 	
 	public Bullet(double x, double y, double speedX, double speedY, double accelX, double accelY,Character shooter, double bulletSpeed , BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY ,image);
@@ -57,7 +57,7 @@ public class Bullet extends ScreenObject{
 		else theta = (Math.PI)/2; // tan(theta) = infinity when divided by ZERO! Then theta = 90 or 270 degree
 		// since arctan function have range only from pi/2 to -pi/2, we will have to find the REAL direction later
 		// I mean, there will be a case that theta is more than pi/2 or less than -pi/2 (when you shoot from right to left)
-		System.out.println("degree = " + theta);
+		//System.out.println("degree = " + theta);
 		if (initX < targetX)
 		{
 			this.speedX = bulletSpeed * Math.cos(theta);
@@ -86,15 +86,10 @@ public class Bullet extends ScreenObject{
 		super.update();
 	}
 	
-	public void hit()
-	{
-		
-	}
-	
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		g2d.drawImage(this.getImage(), null, (int)this.x + 25, (int)this.y + 25);
 	}
-	
+
 }

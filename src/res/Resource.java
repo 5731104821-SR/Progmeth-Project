@@ -24,6 +24,9 @@ public class Resource {
 		public static Font titleFont = new Font("Tahoma" , Font.BOLD , 40);
 		public static Font instructionFont = new Font("Angsana NEW" , Font.BOLD , 30);
 		public static Font countDownFont = new Font("Angsana NEW" , Font.BOLD , 120);
+		public static Font pauseFont = new Font("Angsana NEW" , Font.BOLD , 120);
+		public static Font statusFont = new Font("Tahoma" , Font.BOLD , 30);
+		public static Font hpFont = new Font("Tahoma" , Font.BOLD , 10);
 		
 		static {
 			ClassLoader loader = Resource.class.getClassLoader();

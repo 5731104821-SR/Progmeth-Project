@@ -11,6 +11,6 @@ public class RandomUtility {
 	}
 	
 	public static int randomStartY(){
-		return new Random().nextInt(GameWindow.SCREEN_HEIGHT - 70);
+		return new Random().nextInt(GameWindow.SCREEN_HEIGHT - 140) + 40;
 	}
 }
