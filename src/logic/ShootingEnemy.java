@@ -7,14 +7,14 @@ import gui.GameWindow;
 import gui.InputUtility;
 import res.Resource;
 
-public class NormalEnemy extends Enemy{
+public class ShootingEnemy extends Enemy{
 	
 	private int shootDelayCounter = 0;
 	private int shootDelay = 100;
 
-	public NormalEnemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,
+	public ShootingEnemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,int score,
 			BufferedImage image) {
-		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
+		super(x, y, speedX, speedY, accelX, accelY, maxHp, score , image);
 		// TODO Auto-generated constructor stub
 	}
 	

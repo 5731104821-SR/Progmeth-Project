@@ -8,9 +8,9 @@ import res.Resource;
 
 public class BossEnemy extends Enemy{
 
-	public BossEnemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,
+	public BossEnemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, int score,
 			BufferedImage image) {
-		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
+		super(x, y, speedX, speedY, accelX, accelY, maxHp, score, image);
 		// TODO Auto-generated constructor stub
 	}
 

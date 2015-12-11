@@ -3,7 +3,6 @@ package gui;
 import java.awt.event.KeyEvent;
 
 import logic.GameLogic;
-import logic.RenderableHolder;
 
 public class GameManager {
 		
@@ -31,7 +30,8 @@ public class GameManager {
 							e.printStackTrace();
 						}
 						gameWindow.repaint();
-						if(gameScreen.isStart && !gameScreen.isPaused){
+						if(gameScreen.isStart && !gameScreen.isPaused && !gameScreen.isDead){
+							gameScreen.gameBackground.update();
 							gameLogic.logicUpdate();
 						}
 						if(InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)){

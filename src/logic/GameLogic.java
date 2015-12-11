@@ -10,12 +10,15 @@ import res.Resource;
 public class GameLogic {
 
 	private static GameLogic instance = new GameLogic();
-	protected Player player = new Player(60, 60, 0, 0, 0, 0.25, 1, Resource.character);
+	protected Player player = new Player(60, 60, 0, 0, 0, 0.25, 3, Resource.character);
+	protected PlayerStatus status = new PlayerStatus();
+	protected BossStatus bossStatus = new BossStatus();
 	protected static List<ScreenObject> screenObjects = new CopyOnWriteArrayList<>();
+	protected BossEnemy boss;
 	private int spawnDelay = 250;
 	private int spawnDelayCounter = 0;
 	protected int enemyCount = 0;
-	private boolean isBossAppeared = false;
+	protected boolean isBossAppeared = false;
 
 	public static GameLogic getInstance() {
 		return instance;
@@ -23,7 +26,8 @@ public class GameLogic {
 
 	public GameLogic() {
 		RenderableHolder.getInstance().add(player);
-		// RenderableHolder.getInstance().add(playerStatus);
+		RenderableHolder.getInstance().add(status);
+		RenderableHolder.getInstance().add(bossStatus);
 	}
 
 	public void logicUpdate() {
@@ -36,17 +40,17 @@ public class GameLogic {
 			}
 		}
 		
-		if (enemyCount > 4) {
+		if (enemyCount > 2) {
 			isBossAppeared = true;
-			Enemy boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 ,100 , Resource.boss);
+			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 ,100 , 200 , Resource.boss);
 			screenObjects.add(boss);
 			RenderableHolder.getInstance().add(boss);
 			enemyCount = 0;
-		} else if (enemyCount > 3) {
+		} else if (enemyCount > 30) {
 			spawnDelay = 150;
-		} else if (enemyCount > 2) {
+		} else if (enemyCount > 20) {
 			spawnDelay = 180;
-		} else if (enemyCount > 1) {
+		} else if (enemyCount > 10) {
 			spawnDelay = 210;
 		} else {
 
@@ -82,17 +86,17 @@ public class GameLogic {
 			} else {
 				int spawn = RandomUtility.randomEnemySpawn();
 				if (spawn == 1) {
-					Enemy e = new NormalEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -3, 0, 0, 0, 10,
+					Enemy e = new ShootingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -3, 0, 0, 0, 10, 10,
 							Resource.lemon);
 					screenObjects.add(e);
 					RenderableHolder.getInstance().add(e);
 				} else if (spawn == 2) {
-					Enemy e = new RushEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -1, 0, -0.15, 0, 10,
+					Enemy e = new RushEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -1, 0, -0.15, 0, 10, 15,
 							Resource.carrot);
 					screenObjects.add(e);
 					RenderableHolder.getInstance().add(e);
 				} else {
-					Enemy e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 10,
+					Enemy e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 10, 5,
 							Resource.tomato);
 					screenObjects.add(e);
 					RenderableHolder.getInstance().add(e);

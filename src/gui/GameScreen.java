@@ -12,18 +12,20 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import logic.GameLogic;
 import logic.IRenderable;
 import logic.RenderableHolder;
 import res.Resource;
 
 public class GameScreen extends JPanel{
 	
-	private GameBackground gameBackground;
+	protected GameBackground gameBackground;
 	private int startDelayCounter = 0;
 	private int startDelay = 30;
 	private int countDownNumber = 4;
 	public static boolean isStart = false;
 	public static boolean isPaused = false;
+	public static boolean isDead = false;
 	
 	public GameScreen() {
 		this.setPreferredSize(new Dimension(GameWindow.SCREEN_WIDTH , GameWindow.SCREEN_HEIGHT));
@@ -114,10 +116,11 @@ public class GameScreen extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		
 		if(!isStart && !isPaused){
-			g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 			g2d.setComposite(gameBackground.transcluentBlack);
 			gameBackground.draw(g2d);
-			g2d.drawImage(Resource.character.getSubimage(0, 0, 70, 70), null, 60, 60);
+			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
+				object.draw(g2d);
+			}
 			g2d.setComposite(gameBackground.opaque);
 			if(startDelayCounter < startDelay && countDownNumber==4){
 				startDelayCounter++;
@@ -140,15 +143,13 @@ public class GameScreen extends JPanel{
 				countDownNumber--;
 			}
 		}
-		if(isStart &&!isPaused){
-			g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
+		if(isStart && !isPaused){
 			gameBackground.draw(g2d);
-			gameBackground.update();
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
 				object.draw(g2d);
 			}
 		}
-		if(isStart && isPaused){
+		if(isPaused && !isDead){
 			g2d.setComposite(gameBackground.transcluentBlack);
 			gameBackground.draw(g2d);
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
@@ -161,3 +162,4 @@ public class GameScreen extends JPanel{
 		}
 	}
 }
+
