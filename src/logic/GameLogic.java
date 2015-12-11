@@ -29,7 +29,6 @@ public class GameLogic {
 	public void logicUpdate() {
 		player.update();
 		
-		
 		for (ScreenObject object : screenObjects) {
 			if (object.isDestroyed()) {
 				screenObjects.remove(object);

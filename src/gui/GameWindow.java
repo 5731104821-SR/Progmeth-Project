@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -14,9 +16,9 @@ public class GameWindow extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.currentScene = scene;
 		getContentPane().add(currentScene);
-		pack();
 		setVisible(true);
 		//setResizable(false);
+		pack();
 		currentScene.requestFocus();
 	}
 	

@@ -46,7 +46,12 @@ public class GameScreen extends JPanel{
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				if(!InputUtility.getKeyPressed(KeyEvent.VK_SPACE) && isStart){
+				if(e.getKeyCode()== KeyEvent.VK_SPACE && !InputUtility.getKeyPressed(KeyEvent.VK_SPACE) && isStart){
+					InputUtility.setKeyPressed(e.getKeyCode(), true);
+					InputUtility.setKeyTriggered(e.getKeyCode(),true);
+				}
+				if(e.getKeyCode()== KeyEvent.VK_W &&!InputUtility.getKeyPressed(KeyEvent.VK_W) && isStart){
+					isPaused = !isPaused;
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
 					InputUtility.setKeyTriggered(e.getKeyCode(),true);
 				}
@@ -108,7 +113,7 @@ public class GameScreen extends JPanel{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
 		
-		if(!isStart){
+		if(!isStart && !isPaused){
 			g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 			g2d.setComposite(gameBackground.transcluentBlack);
 			gameBackground.draw(g2d);
@@ -135,13 +140,24 @@ public class GameScreen extends JPanel{
 				countDownNumber--;
 			}
 		}
-		if(isStart){
+		if(isStart &&!isPaused){
 			g2d.clearRect(0, 0, GameWindow.SCREEN_WIDTH, GameWindow.SCREEN_HEIGHT);
 			gameBackground.draw(g2d);
 			gameBackground.update();
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
 				object.draw(g2d);
 			}
+		}
+		if(isStart && isPaused){
+			g2d.setComposite(gameBackground.transcluentBlack);
+			gameBackground.draw(g2d);
+			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
+				object.draw(g2d);
+			}
+			g2d.setComposite(gameBackground.opaque);
+			g2d.setColor(Color.BLUE);
+			g2d.setFont(Resource.pauseFont);
+			g2d.drawString("PAUSE", 270, 320);
 		}
 	}
 }
