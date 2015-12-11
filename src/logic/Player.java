@@ -37,7 +37,7 @@ public class Player extends Character {
 	}
 	
 	public void hit(){
-		
+		System.out.println("hit");
 	}
 	
 	@Override
@@ -75,6 +75,12 @@ public class Player extends Character {
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public boolean collideWith(ScreenObject object) {
+		// TODO Auto-generated method stub
+		return Math.hypot(this.x - object.x, this.y - object.y) <= this.getImage().getWidth()/8 + object.getImage().getWidth()/2;
 	}
 
 	@Override

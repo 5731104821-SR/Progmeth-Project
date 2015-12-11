@@ -3,6 +3,7 @@ package logic;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import gui.GameWindow;
 import res.Resource;
 
 public class BossEnemy extends Enemy{
@@ -15,6 +16,15 @@ public class BossEnemy extends Enemy{
 
 	public void update(){
 		//
+		super.update();
+		if(this.x < GameWindow.SCREEN_WIDTH - 280){
+			this.speedX = 0;
+		}
+	}
+	
+	@Override
+	public boolean collideWith(ScreenObject object){
+		return object.x - this.x > 50 && object.x - this.x < 250 && object.y - this.y > -30 && object.y - this.y < 270;
 	}
 	
 	@Override

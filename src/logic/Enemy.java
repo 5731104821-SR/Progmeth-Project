@@ -15,8 +15,18 @@ public abstract class Enemy extends Character{
 		// TODO Auto-generated constructor stub
 		
 	}
+	
+	@Override
+	public boolean collideWith(ScreenObject object){
+		return Math.hypot(this.x - object.x, this.y - object.y) <= this.getImage().getWidth()/2 + object.getImage().getWidth()/2;
+	}
 
 	public void hit(){
-		
+		this.hp--;
+		if(this.hp==0){
+			this.isDestroyed = true;
+			GameLogic.getInstance().enemyCount++;
+			System.out.println("Enemy Count = " + GameLogic.getInstance().enemyCount);
+		}
 	}
 }

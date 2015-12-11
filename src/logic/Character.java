@@ -13,10 +13,6 @@ public abstract class Character extends ScreenObject {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public void dead(){
-		this.isDestroyed = true;
-		GameLogic.getInstance().enemyCount++;
-		System.out.println(GameLogic.getInstance().enemyCount);
-	}
+
+	public abstract boolean collideWith(ScreenObject object);
 }
