@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import gui.GameBackground;
+import gui.GameScreen;
 import gui.GameWindow;
 import res.RandomUtility;
 import res.Resource;
@@ -12,13 +13,15 @@ public class GameLogic {
 
 	private static GameLogic instance = new GameLogic();
 	protected GameBackground gameBackground = new GameBackground();
-	public Player player = new Player(60, 60, 0, 0, 0, 0.25, 3, Resource.character);
+	public Player player = new Player(60, 60, 0, 0, 0, 0.25, 10, Resource.character);
 	public PlayerStatus status = new PlayerStatus();
 	protected BossStatus bossStatus = new BossStatus();
 	public static List<ScreenObject> screenObjects = new CopyOnWriteArrayList<>();
 	protected BossEnemy boss;
 	private int spawnDelay = 250;
 	private int spawnDelayCounter = 0;
+	private int winDelay = 200;
+	private int winDelayCounter = 0;
 	protected int enemyCount = 0;
 	protected boolean isBossAppeared = false;
 	
@@ -39,19 +42,33 @@ public class GameLogic {
 		gameBackground.update();
 		player.update();
 		
-		//remove destroy screen object
-		for (ScreenObject object : screenObjects) {
-			if (object.isDestroyed()) {
-				screenObjects.remove(object);
-				RenderableHolder.getInstance().getRenderableList().remove(object);
+		//You win game 
+		if(GameScreen.isWin){
+			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
+				if(object instanceof Enemy || object instanceof Bullet){
+					((ScreenObject)object).isDestroyed = true;
+				}
 			}
 		}
 		
-		if (enemyCount > 2 && !isBossAppeared) {
+		//remove destroy screen object
+		for (ScreenObject object : screenObjects) {
+			if (object.isDestroyed()) {
+				if(object instanceof BossEnemy) {
+					GameScreen.isWin = true;
+				}
+				else{
+					screenObjects.remove(object);
+					RenderableHolder.getInstance().getRenderableList().remove(object);
+				}
+			}
+		}
+		
+		if (enemyCount > 0 && !isBossAppeared) {
 		//increase difficulty
 
 			isBossAppeared = true;
-			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 ,100 , 200 , Resource.boss);
+			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 , 20 , 200 , Resource.boss);
 			screenObjects.add(boss);
 			RenderableHolder.getInstance().add(boss);
 			
