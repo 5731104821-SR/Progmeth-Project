@@ -7,7 +7,7 @@ public abstract class Enemy extends Character{
 	
 	private int score;
 
-	public Enemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, int socre ,BufferedImage image) {
+	public Enemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, int score ,BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
 		// TODO Auto-generated constructor stub
 		this.score = score;
