@@ -41,15 +41,10 @@ public class BossEnemy extends Enemy {
 	public void update() {
 		//
 		super.update();
-<<<<<<< Upstream, based on origin/master
 		if (GameScreen.isWin)
 		{
 			if (flyDelayCounter < flyDelay)
 			{
-=======
-		if (GameScreen.isWin) {
-			if (flyDelayCounter < flyDelay) {
->>>>>>> f29cfd8 merge si woi
 				flyDelayCounter++;
 				return;
 			}
@@ -91,9 +86,7 @@ public class BossEnemy extends Enemy {
 				}
 				else
 				{
-<<<<<<< Upstream, based on origin/master
 					attackType = 0;
-=======
 					shootDelay = 0;
 					Bullet b = new Bullet(this,5,60,bulletY,0,0,Resource.bullet_lemon);
 					RenderableHolder.getInstance().add(b);
@@ -101,72 +94,6 @@ public class BossEnemy extends Enemy {
 					bulletY += speedChange;
 					if (bulletY > 400) bulletY = 0;
 					shootCount++;
-			this.speedX = 4;
-			this.speedY = -4;
-			this.rotateDegree += 0.10;
-		} else if (!GameScreen.isWin) {
-			if (this.x < GameWindow.SCREEN_WIDTH - 280) {
-				this.speedX = 0;
-			}
-			if (attackType == 0) {
-				if (attackDelayCounter < attackDelay) {
-					attackDelayCounter++;
-					return;
-				}
-				randAttack();
-				attackDelayCounter = 0;
-
-			} else if (attackType == 1) {
-				if (shootCount < shootAmount) {
-					if (shootDelay < shootDelayCounter)
-						shootDelay++;
-					else {
-						shootDelay = 0;
-						Bullet b = new Bullet(this, 5, 0, bulletY, 0, 0, Resource.bullet_lemon);
-						RenderableHolder.getInstance().add(b);
-						GameLogic.screenObjects.add(b);
-						bulletY += speedChange;
-						if (bulletY > 400)
-							bulletY = 0;
-						shootCount++;
-					}
-				} else {
-					attackType = 0; // finish attack
-<<<<<<< Upstream, based on origin/master
->>>>>>> 9f48f66 test merge
-=======
-			this.speedX = 4;
-			this.speedY = -4;
-			this.rotateDegree += 0.10;
-		} else if (!GameScreen.isWin) {
-			if (this.x < GameWindow.SCREEN_WIDTH - 280) {
-				this.speedX = 0;
-			}
-			if (attackType == 0) {
-				if (attackDelayCounter < attackDelay) {
-					attackDelayCounter++;
-					return;
-				}
-				randAttack();
-				attackDelayCounter = 0;
-
-			} else if (attackType == 1) {
-				if (shootCount < shootAmount) {
-					if (shootDelay < shootDelayCounter)
-						shootDelay++;
-					else {
-						shootDelay = 0;
-						Bullet b = new Bullet(this, 5, 0, bulletY, 0, 0, Resource.bullet_lemon);
-						RenderableHolder.getInstance().add(b);
-						GameLogic.screenObjects.add(b);
-						bulletY += speedChange;
-						if (bulletY > 400)
-							bulletY = 0;
-						shootCount++;
-					}
-				} else {
-					attackType = 0; // finish attack
->>>>>>> f29cfd8 merge si woi
 				}
 			} 
 		}
