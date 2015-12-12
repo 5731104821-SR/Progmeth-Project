@@ -13,7 +13,7 @@ public class GameLogic {
 	private static GameLogic instance = new GameLogic();
 	protected GameBackground gameBackground = new GameBackground();
 	public Player player = new Player(60, 60, 0, 0, 0, 0.25, 3, Resource.character);
-	protected PlayerStatus status = new PlayerStatus();
+	public PlayerStatus status = new PlayerStatus();
 	protected BossStatus bossStatus = new BossStatus();
 	public static List<ScreenObject> screenObjects = new CopyOnWriteArrayList<>();
 	protected BossEnemy boss;
@@ -39,6 +39,7 @@ public class GameLogic {
 		gameBackground.update();
 		player.update();
 		
+		//remove destroy screen object
 		for (ScreenObject object : screenObjects) {
 			if (object.isDestroyed()) {
 				screenObjects.remove(object);
@@ -47,6 +48,8 @@ public class GameLogic {
 		}
 		
 		if (enemyCount > 2 && !isBossAppeared) {
+		//increase difficulty
+
 			isBossAppeared = true;
 			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 ,100 , 200 , Resource.boss);
 			screenObjects.add(boss);
@@ -59,10 +62,9 @@ public class GameLogic {
 			spawnDelay = 180;
 		} else if (enemyCount > 10) {
 			spawnDelay = 210;
-		} else {
-
 		}
 
+		//check collideWith
 		for (ScreenObject object : screenObjects) {
 			object.update();
 			if(object instanceof Enemy){
@@ -87,6 +89,7 @@ public class GameLogic {
 			}
 		}
 
+		//random enemy spawn
 		if (!isBossAppeared) {
 			if (spawnDelayCounter < spawnDelay) {
 				spawnDelayCounter++;
@@ -112,6 +115,7 @@ public class GameLogic {
 			}
 		}
 
+		//out of screen
 		for (ScreenObject object : screenObjects) {
 			if (object.x < -70 || object.x > GameWindow.SCREEN_WIDTH + 1) {
 				object.isDestroyed = true;

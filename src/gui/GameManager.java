@@ -18,7 +18,7 @@ public class GameManager {
 		gameWindow = new GameWindow(gameTitle);
 
 		new Thread(new Runnable() {
-			//This thread is for run game without pause
+			// This thread is for run game without pause
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -26,13 +26,13 @@ public class GameManager {
 					while (true) {
 						synchronized (RenderableHolder.getInstance().getRenderableList()) {
 							Thread.sleep(12);
-							if(gameScreen.isPaused){
+							if (gameScreen.isPaused) {
 								RenderableHolder.getInstance().getRenderableList().wait();
 							}
-							if(gameScreen.isStart && !gameScreen.isGameOver){
+							if (gameScreen.isStart && !gameScreen.isGameOver) {
 								gameLogic.logicUpdate();
 							}
-							if(gameScreen.isGameOver){
+							if (gameScreen.isGameOver) {
 								GameLogic.getInstance().player.gameOver();
 							}
 						}
@@ -47,25 +47,24 @@ public class GameManager {
 						}
 						gameWindow.repaint();
 					}
-				} 
-				catch (InterruptedException e) {
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}).start();
-		
+
 	}
 
 	public static void newGame() {
 		gameWindow.switchScene(gameScreen);
 	}
-	
+
 	public static void gotoTitle() {
-		GameLogic gameLogic = new GameLogic();
+		GameLogic gameLogic = GameLogic.getInstance();
 		gameTitle = new GameTitle();
 		gameScreen = new GameScreen();
-		gameWindow.switchScene(gameTitle);
+		gameWindow = new GameWindow(gameTitle);
 		GameScreen.isStart = false;
 		GameScreen.isPaused = false;
 		GameScreen.isGameOver = false;
