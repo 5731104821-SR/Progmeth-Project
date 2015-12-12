@@ -19,7 +19,7 @@ public class PlayerStatus implements IRenderable{
 	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub
-		return Integer.MAX_VALUE;
+		return Integer.MIN_VALUE;
 	}
 
 	@Override

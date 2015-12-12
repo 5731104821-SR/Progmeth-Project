@@ -23,9 +23,12 @@ public class GameScreen extends JPanel{
 	private int startDelayCounter = 0;
 	private final int startDelay = 30;
 	private int countDownNumber = 4;
+	private int winDelay = 200;
+	private int winDelayCounter = 0;
 	public static boolean isStart = false;
 	public static boolean isPaused = false;
 	public static boolean isGameOver = false;
+	public static boolean isWin = false;
 	public static boolean gameOverScreen = false;
 	
 	public GameScreen() {
@@ -173,6 +176,16 @@ public class GameScreen extends JPanel{
 			g2d.setFont(Resource.pauseFont);
 			g2d.setColor(Color.WHITE);
 			g2d.drawString("GAME OVER", 140, 320);
+		}
+		if(isWin && !isGameOver){
+			if(winDelayCounter < winDelay){
+				winDelayCounter++;
+			}
+			else{
+				g2d.setColor(Color.PINK);
+				g2d.setFont(Resource.pauseFont);
+				g2d.drawString("YOU WIN", 200, 320);
+			}
 		}
 	}
 }

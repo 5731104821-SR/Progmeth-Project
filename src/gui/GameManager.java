@@ -15,7 +15,7 @@ public class GameManager {
 		GameLogic gameLogic = GameLogic.getInstance();
 		gameTitle = new GameTitle();
 		gameScreen = new GameScreen();
-		gameWindow = new GameWindow(gameTitle);
+		gameWindow = new GameWindow(gameScreen);
 
 		new Thread(new Runnable() {
 			// This thread is for run game without pause

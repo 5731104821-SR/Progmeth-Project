@@ -37,7 +37,7 @@ public class Player extends Character {
 	}
 	
 	public void shoot() {
-		Bullet b = new Bullet(this , 10 , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 ,0 , Resource.bullet_cake);
+		Bullet b = new Bullet(this , 10 , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 , 0 , Resource.bullet_cake);
 		RenderableHolder.getInstance().add(b);
 		GameLogic.screenObjects.add(b);
 	}
@@ -110,7 +110,7 @@ public class Player extends Character {
 	@Override
 	public boolean collideWith(ScreenObject object) {
 		// TODO Auto-generated method stub
-		return Math.hypot(this.x+this.getImage().getWidth()/8 - object.x, this.y+this.getImage().getHeight()/2 - object.y) <= this.getImage().getWidth()/8 + object.getImage().getWidth()/2;
+		return Math.hypot(this.x+this.getImage().getWidth()/8 - object.x, this.y+this.getImage().getHeight()/2 - object.y) <= this.getImage().getWidth()/8 + object.getImage().getWidth()/8;
 	}
 
 	@Override
