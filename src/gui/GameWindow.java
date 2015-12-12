@@ -16,8 +16,9 @@ public class GameWindow extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.currentScene = scene;
 		getContentPane().add(currentScene);
+		getContentPane().validate();
+		setResizable(false);
 		setVisible(true);
-		//setResizable(false);
 		pack();
 		currentScene.requestFocus();
 	}
