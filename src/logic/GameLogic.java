@@ -13,7 +13,7 @@ public class GameLogic {
 
 	private static GameLogic instance = new GameLogic();
 	protected GameBackground gameBackground = new GameBackground();
-	public Player player = new Player(60, 60, 0, 0, 0, 0.25, 10, Resource.character);
+	public Player player = new Player(60, 60, 0, 0, 0, 0.35, 3, Resource.character);
 	public PlayerStatus status = new PlayerStatus();
 	protected BossStatus bossStatus = new BossStatus();
 	public static List<ScreenObject> screenObjects = new CopyOnWriteArrayList<>();
@@ -30,8 +30,16 @@ public class GameLogic {
 	public static GameLogic getInstance() {
 		return instance;
 	}
+	
+	public static void resetInstance()
+	{
+		screenObjects.clear();
+		RenderableHolder.getInstance().clearEntities();
+		instance = new GameLogic();
+	}
 
 	public GameLogic() {
+		player = new Player(60, 60, 0, 0, 0, 0.25, 3, Resource.character);
 		RenderableHolder.getInstance().add(gameBackground);
 		RenderableHolder.getInstance().add(player);
 		RenderableHolder.getInstance().add(status);
@@ -94,8 +102,19 @@ public class GameLogic {
 					}
 				}
 				if(player.collideWith(object)){
-					player.hit();
-					((Enemy) object).isDestroyed = true;
+					if (object instanceof Explosion)
+					{
+						if (((Explosion)object).isExplode)
+						{
+							player.hit();
+							((Enemy) object).isDestroyed = true;
+						}
+					}
+					else
+					{
+						player.hit();
+						((Enemy) object).isDestroyed = true;
+					}
 				}
 			}
 			else if(object instanceof Bullet){

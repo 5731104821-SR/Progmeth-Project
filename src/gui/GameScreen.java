@@ -32,6 +32,10 @@ public class GameScreen extends JPanel{
 	public static boolean gameOverScreen = false;
 	
 	public GameScreen() {
+		isStart = false;
+		isPaused = false;
+		isGameOver = false;
+		gameOverScreen = false;
 		this.setPreferredSize(new Dimension(GameWindow.SCREEN_WIDTH , GameWindow.SCREEN_HEIGHT));
 		setDoubleBuffered(true);
 		this.addKeyListener(new KeyListener() {

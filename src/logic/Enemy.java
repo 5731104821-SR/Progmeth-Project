@@ -21,7 +21,7 @@ public abstract class Enemy extends Character{
 	
 	@Override
 	public boolean collideWith(ScreenObject object){
-		return Math.hypot(this.x - object.x, this.y - object.y) <= this.getImage().getWidth()/2 + object.getImage().getWidth()/2;
+		return Math.hypot(this.x+this.getImage().getWidth()/8 - object.x, this.y+this.getImage().getHeight()/2 - object.y) <= this.getImage().getWidth()/2 + object.getImage().getWidth()/2;
 	}
 
 	public void hit(){

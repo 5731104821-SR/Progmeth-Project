@@ -27,8 +27,18 @@ public class RenderableHolder {
 			}
 		});
 	}
+	
+	public void remove(IRenderable i)
+	{
+		entities.remove(i); // remove แล้วก็คงไม่ต้อง sort ใหม่มั้ง
+	}
 
 	public List<IRenderable> getRenderableList() {
 		return entities;
+	}
+	
+	public void clearEntities()
+	{
+		entities.clear();
 	}
 }

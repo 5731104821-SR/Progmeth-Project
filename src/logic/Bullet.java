@@ -55,7 +55,10 @@ public class Bullet extends ScreenObject{
 	{
 		// calculate initial speedX and speedY from shooter position, target position and bullet speed
 		double theta; // angle between shooter position and target point position
-		if (initX != targetX) theta = Math.atan((initY - targetY)/(targetX - initX)); // don't forget that the x,y system of Java graphic is different from Math x,y co-ordinate
+		double a = (initY - targetY);
+		double b = (targetX - initX);
+		double c = a/b;
+		if (initX != targetX) theta = Math.atan(c); // don't forget that the x,y system of Java graphic is different from Math x,y co-ordinate
 		else theta = (Math.PI)/2; // tan(theta) = infinity when divided by ZERO! Then theta = 90 or 270 degree
 		// since arctan function have range only from pi/2 to -pi/2, we will have to find the REAL direction later
 		// I mean, there will be a case that theta is more than pi/2 or less than -pi/2 (when you shoot from right to left)

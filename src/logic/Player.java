@@ -110,7 +110,7 @@ public class Player extends Character {
 	@Override
 	public boolean collideWith(ScreenObject object) {
 		// TODO Auto-generated method stub
-		return Math.hypot(this.x+this.getImage().getWidth()/8 - object.x, this.y+this.getImage().getHeight()/2 - object.y) <= this.getImage().getWidth()/8 + object.getImage().getWidth()/8;
+		return Math.hypot(this.x+this.getImage().getWidth()/8 - object.x-object.getImage().getWidth()/2, this.y+this.getImage().getHeight()/2 - object.y-object.getImage().getHeight()/2) <= this.getImage().getWidth()/8 + object.getImage().getWidth()/2;
 	}
 
 	@Override
