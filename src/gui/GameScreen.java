@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import logic.GameLogic;
 import logic.IRenderable;
@@ -76,7 +77,7 @@ public class GameScreen extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				if(!InputUtility.isMouseLeftDown() && isStart){
+				if(SwingUtilities.isLeftMouseButton(e) && !InputUtility.isMouseLeftDown() && isStart){
 					InputUtility.setMouseLeftDown(true);
 					InputUtility.setMouseLeftTriggered(true);
 				}
