@@ -16,7 +16,9 @@ public class Player extends Character {
 	private final int defaultSpeedY = -7; // set it later
 	private double rotateDegree = 0;
 	private int currentFrame , frameWidth ,frameDelayCounter;
-	private final int frameDelay = 10; 
+	private final int frameDelay = 10;
+	private int gameOverDelay = 0;
+	private boolean lastBounce = false; //bounce up when game over 
 	
 	public Player(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
@@ -40,7 +42,26 @@ public class Player extends Character {
 	public void hit(){
 		this.hp--;
 		if(this.hp==0){
-			GameScreen.isDead = true;
+			GameScreen.isGameOver = true;
+		}
+	}
+	
+	public void gameOver(){
+		if(gameOverDelay < 80){
+			gameOverDelay++;
+			return;
+		}
+		if(!lastBounce){
+			this.speedY = -10;
+			lastBounce = true;
+		}
+		rotateDegree++;
+		x += speedX;
+		y += speedY;
+		speedX += accelX;
+		speedY += accelY;
+		if(this.y > GameWindow.SCREEN_HEIGHT + 800){
+			GameScreen.gameOverScreen = true;
 		}
 	}
 	
@@ -53,6 +74,8 @@ public class Player extends Character {
 		}
 		if(this.y > GameWindow.SCREEN_HEIGHT-100){
 			this.y = GameWindow.SCREEN_HEIGHT-100;
+			this.hp = 0;
+			GameScreen.isGameOver = true;
 		}
 		if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE))
 		{
@@ -90,8 +113,8 @@ public class Player extends Character {
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		//AffineTransform a = new AffineTransform();
-		//a.rotate(rotateDegree);
+		AffineTransform a = new AffineTransform();
+		a.rotate(rotateDegree);
 		g2d.drawImage(getImage().getSubimage(frameWidth*currentFrame, 0, frameWidth, getImage().getHeight()), null, (int)this.x, (int)this.y);
 	}
 }
