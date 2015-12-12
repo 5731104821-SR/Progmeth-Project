@@ -10,9 +10,10 @@ public class GameManager {
 	private static GameTitle gameTitle;
 	private static GameScreen gameScreen;
 	private static GameWindow gameWindow;
+	private static GameLogic gameLogic;
 
 	public static void runGame() {
-		GameLogic gameLogic = GameLogic.getInstance();
+		gameLogic = GameLogic.getInstance();
 		gameTitle = new GameTitle();
 		gameScreen = new GameScreen();
 		gameWindow = new GameWindow(gameScreen);
@@ -61,14 +62,8 @@ public class GameManager {
 	}
 
 	public static void gotoTitle() {
-		GameLogic gameLogic = GameLogic.getInstance();
-		gameTitle = new GameTitle();
+		GameLogic.resetInstance();
+		gameWindow.switchScene(gameTitle);
 		gameScreen = new GameScreen();
-		gameWindow = new GameWindow(gameTitle);
-		GameScreen.isStart = false;
-		GameScreen.isPaused = false;
-		GameScreen.isGameOver = false;
-		GameScreen.gameOverScreen = false;
-		GameLogic.screenObjects.clear();
 	}
 }
