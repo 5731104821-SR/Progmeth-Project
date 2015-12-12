@@ -3,52 +3,73 @@ package gui;
 import java.awt.event.KeyEvent;
 
 import logic.GameLogic;
+import logic.RenderableHolder;
 
 public class GameManager {
-		
-		private static GameTitle gameTitle;
-		private static GameScreen gameScreen;
-		private static GameWindow gameWindow;
-		
-		public static void runGame(){
-			GameLogic gameLogic = GameLogic.getInstance();
-			gameTitle = new GameTitle();
-			gameScreen = new GameScreen();
-			gameWindow = new GameWindow(gameScreen);
-			
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					while(true) {
-						try {
+
+	private static GameTitle gameTitle;
+	private static GameScreen gameScreen;
+	private static GameWindow gameWindow;
+
+	public static void runGame() {
+		GameLogic gameLogic = GameLogic.getInstance();
+		gameTitle = new GameTitle();
+		gameScreen = new GameScreen();
+		gameWindow = new GameWindow(gameTitle);
+
+		new Thread(new Runnable() {
+			//This thread is for run game without pause
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					while (true) {
+						synchronized (RenderableHolder.getInstance().getRenderableList()) {
 							Thread.sleep(12);
-						} 
-						catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							if(gameScreen.isPaused){
+								RenderableHolder.getInstance().getRenderableList().wait();
+							}
+							if(gameScreen.isStart && !gameScreen.isGameOver){
+								gameLogic.logicUpdate();
+							}
+							if(gameScreen.isGameOver){
+								GameLogic.getInstance().player.gameOver();
+							}
 						}
-						gameWindow.repaint();
-						if(gameScreen.isStart && !gameScreen.isPaused && !gameScreen.isDead){
-							gameScreen.gameBackground.update();
-							gameLogic.logicUpdate();
+						if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)) {
+							InputUtility.setKeyTriggered(KeyEvent.VK_SPACE, false);
 						}
-						if(InputUtility.getKeyTriggered(KeyEvent.VK_SPACE)){
-							InputUtility.setKeyTriggered(KeyEvent.VK_SPACE , false);
+						if (InputUtility.getKeyTriggered(KeyEvent.VK_W)) {
+							InputUtility.setKeyTriggered(KeyEvent.VK_W, false);
 						}
-						if(InputUtility.getKeyTriggered(KeyEvent.VK_W)){
-							InputUtility.setKeyTriggered(KeyEvent.VK_W , false);
-						}
-						if(InputUtility.isMouseLeftClicked()){
+						if (InputUtility.isMouseLeftClicked()) {
 							InputUtility.setMouseLeftTriggered(false);
 						}
+						gameWindow.repaint();
 					}
+				} 
+				catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			}).start();
-		}
+			}
+		}).start();
 		
-		public static void newGame(){
-			gameWindow.switchScene(gameScreen);
-		}
+	}
+
+	public static void newGame() {
+		gameWindow.switchScene(gameScreen);
+	}
+	
+	public static void gotoTitle() {
+		GameLogic gameLogic = new GameLogic();
+		gameTitle = new GameTitle();
+		gameScreen = new GameScreen();
+		gameWindow.switchScene(gameTitle);
+		GameScreen.isStart = false;
+		GameScreen.isPaused = false;
+		GameScreen.isGameOver = false;
+		GameScreen.gameOverScreen = false;
+		GameLogic.screenObjects.clear();
+	}
 }

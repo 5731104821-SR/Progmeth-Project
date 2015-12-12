@@ -19,17 +19,16 @@ import res.Resource;
 
 public class GameScreen extends JPanel{
 	
-	protected GameBackground gameBackground;
 	private int startDelayCounter = 0;
-	private int startDelay = 30;
+	private final int startDelay = 30;
 	private int countDownNumber = 4;
 	public static boolean isStart = false;
 	public static boolean isPaused = false;
-	public static boolean isDead = false;
+	public static boolean isGameOver = false;
+	public static boolean gameOverScreen = false;
 	
 	public GameScreen() {
 		this.setPreferredSize(new Dimension(GameWindow.SCREEN_WIDTH , GameWindow.SCREEN_HEIGHT));
-		gameBackground = new GameBackground();
 		setDoubleBuffered(true);
 		this.addKeyListener(new KeyListener() {
 			
@@ -52,10 +51,16 @@ public class GameScreen extends JPanel{
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
 					InputUtility.setKeyTriggered(e.getKeyCode(),true);
 				}
-				if(e.getKeyCode()== KeyEvent.VK_W &&!InputUtility.getKeyPressed(KeyEvent.VK_W) && isStart){
+				if(e.getKeyCode()== KeyEvent.VK_W && !InputUtility.getKeyPressed(KeyEvent.VK_W) && isStart && !isGameOver){
+					synchronized (RenderableHolder.getInstance().getRenderableList()) {
+						RenderableHolder.getInstance().getRenderableList().notifyAll();
+					}
 					isPaused = !isPaused;
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
 					InputUtility.setKeyTriggered(e.getKeyCode(),true);
+				}
+				if(e.getKeyCode()== KeyEvent.VK_SPACE && gameOverScreen){
+					GameManager.gotoTitle();
 				}
 			}
 		});
@@ -116,12 +121,11 @@ public class GameScreen extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		
 		if(!isStart && !isPaused){
-			g2d.setComposite(gameBackground.transcluentBlack);
-			gameBackground.draw(g2d);
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
+				g2d.setComposite(GameBackground.transcluentBlack);
 				object.draw(g2d);
 			}
-			g2d.setComposite(gameBackground.opaque);
+			g2d.setComposite(GameBackground.opaque);
 			if(startDelayCounter < startDelay && countDownNumber==4){
 				startDelayCounter++;
 				g2d.setColor(Color.BLUE);
@@ -137,6 +141,7 @@ public class GameScreen extends JPanel{
 			else if(startDelayCounter >= startDelay && countDownNumber==1){
 				isStart = true;
 				startDelayCounter = 0;
+				countDownNumber = 4;
 			}
 			else{
 				startDelayCounter = 0;
@@ -144,21 +149,29 @@ public class GameScreen extends JPanel{
 			}
 		}
 		if(isStart && !isPaused){
-			gameBackground.draw(g2d);
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
 				object.draw(g2d);
 			}
 		}
-		if(isPaused && !isDead){
-			g2d.setComposite(gameBackground.transcluentBlack);
-			gameBackground.draw(g2d);
+		if(isPaused){
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
+				g2d.setComposite(GameBackground.transcluentBlack);
 				object.draw(g2d);
 			}
-			g2d.setComposite(gameBackground.opaque);
+			g2d.setComposite(GameBackground.opaque);
 			g2d.setColor(Color.BLUE);
 			g2d.setFont(Resource.pauseFont);
 			g2d.drawString("PAUSE", 270, 320);
+		}
+		if(isGameOver && !gameOverScreen){
+			GameLogic.getInstance().player.draw(g2d);
+		}
+		if(isGameOver && gameOverScreen){
+			g2d.setColor(Color.BLACK);
+			g2d.fillRect(0, 0, GameWindow.SCREEN_WIDTH,  GameWindow.SCREEN_HEIGHT);
+			g2d.setFont(Resource.pauseFont);
+			g2d.setColor(Color.WHITE);
+			g2d.drawString("GAME OVER", 140, 320);
 		}
 	}
 }

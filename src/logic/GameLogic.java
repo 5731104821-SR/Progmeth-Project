@@ -3,6 +3,7 @@ package logic;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import gui.GameBackground;
 import gui.GameWindow;
 import res.RandomUtility;
 import res.Resource;
@@ -10,10 +11,11 @@ import res.Resource;
 public class GameLogic {
 
 	private static GameLogic instance = new GameLogic();
-	protected Player player = new Player(60, 60, 0, 0, 0, 0.25, 3, Resource.character);
+	protected GameBackground gameBackground = new GameBackground();
+	public Player player = new Player(60, 60, 0, 0, 0, 0.25, 3, Resource.character);
 	protected PlayerStatus status = new PlayerStatus();
 	protected BossStatus bossStatus = new BossStatus();
-	protected static List<ScreenObject> screenObjects = new CopyOnWriteArrayList<>();
+	public static List<ScreenObject> screenObjects = new CopyOnWriteArrayList<>();
 	protected BossEnemy boss;
 	private int spawnDelay = 250;
 	private int spawnDelayCounter = 0;
@@ -25,12 +27,14 @@ public class GameLogic {
 	}
 
 	public GameLogic() {
+		RenderableHolder.getInstance().add(gameBackground);
 		RenderableHolder.getInstance().add(player);
 		RenderableHolder.getInstance().add(status);
 		RenderableHolder.getInstance().add(bossStatus);
 	}
 
 	public void logicUpdate() {
+		gameBackground.update();
 		player.update();
 		
 		for (ScreenObject object : screenObjects) {
@@ -45,7 +49,7 @@ public class GameLogic {
 			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 ,100 , 200 , Resource.boss);
 			screenObjects.add(boss);
 			RenderableHolder.getInstance().add(boss);
-			enemyCount = 0;
+			enemyCount = -1;
 		} else if (enemyCount > 30) {
 			spawnDelay = 150;
 		} else if (enemyCount > 20) {
@@ -106,7 +110,7 @@ public class GameLogic {
 		}
 
 		for (ScreenObject object : screenObjects) {
-			if (object.x < -70) {
+			if (object.x < -70 || object.x > GameWindow.SCREEN_WIDTH + 1) {
 				object.isDestroyed = true;
 			}
 		}
