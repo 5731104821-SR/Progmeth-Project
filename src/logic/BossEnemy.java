@@ -65,8 +65,9 @@ public class BossEnemy extends Enemy {
 					attackDelayCounter++;
 					return;
 				}
-			randAttack();
-			attackDelayCounter = 0;
+				System.out.println(attackDelayCounter);
+				randAttack();
+				attackDelayCounter = 0;
 			}
 			else if (attackType == 1)
 			{
@@ -87,18 +88,10 @@ public class BossEnemy extends Enemy {
 				else
 				{
 					attackType = 0;
-					shootDelay = 0;
-					Bullet b = new Bullet(this,5,60,bulletY,0,0,Resource.bullet_lemon);
-					RenderableHolder.getInstance().add(b);
-					GameLogic.screenObjects.add(b);
-					bulletY += speedChange;
-					if (bulletY > 400) bulletY = 0;
-					shootCount++;
 				}
 			} 
-		}
-		else if (attackType == 2)
-		{
+			else if (attackType == 2)
+			{
 				int randAttackSpeed = (int) (Math.random() * 200) + 80;
 				Enemy e = new ShootingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -6, 0, 0, 0, 7, 10,
 						Resource.lemon, -0.4, randAttackSpeed, 270, 6);
@@ -124,26 +117,27 @@ public class BossEnemy extends Enemy {
 				RenderableHolder.getInstance().add(e);
 
 				attackType = 0;
-		}
-		else if (attackType == 3)
-		{
-			if(shootCount < shootAmount)
+			}
+			else if (attackType == 3)
 			{
-				if (shootDelay < shootDelayCounter) shootDelay++;
+				if(shootCount < shootAmount)
+				{
+					if (shootDelay < shootDelayCounter) shootDelay++;
+					else
+					{
+						shootDelay = 0;
+						Enemy b = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0, 0, 1, Resource.bomb_size);
+						RenderableHolder.getInstance().add(b);
+						GameLogic.screenObjects.add(b);
+						bulletY += speedChange;
+						if (bulletY > 400) bulletY = 0;
+						shootCount++;
+					}
+				}
 				else
 				{
-					shootDelay = 0;
-					Enemy b = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0, 0, 1, Resource.bomb_size);
-					RenderableHolder.getInstance().add(b);
-					GameLogic.screenObjects.add(b);
-					bulletY += speedChange;
-					if (bulletY > 400) bulletY = 0;
-					shootCount++;
+					attackType = 0; // finish attack
 				}
-			}
-			else
-			{
-				attackType = 0; // finish attack
 			}
 		}
 	}
