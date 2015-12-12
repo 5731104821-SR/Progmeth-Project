@@ -11,6 +11,9 @@ public class ShootingEnemy extends Enemy{
 	
 	private int shootDelayCounter = 0;
 	private int shootDelay = 100;
+	private int widthStop = 130;
+	private double speedXAfter = 0; // the speed that lemon move after coming into screen
+	private double bulletSpeed = 8;
 
 	public ShootingEnemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,int score,
 			BufferedImage image) {
@@ -18,11 +21,21 @@ public class ShootingEnemy extends Enemy{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public ShootingEnemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,int score,
+			BufferedImage image, double speedXAfter,int shootDelay, int widthStop, double bulletSpeed) { // for boss summoning
+		super(x, y, speedX, speedY, accelX, accelY, maxHp, score , image);
+		// TODO Auto-generated constructor stub
+		this.shootDelay = shootDelay;
+		this.speedXAfter = speedXAfter;
+		this.widthStop = widthStop;
+		this.bulletSpeed = bulletSpeed;
+	}
+	
 	@Override
 	public void update(){
 		super.update();
-		if(this.x < GameWindow.SCREEN_WIDTH - 130){
-			this.speedX = 0;
+		if(this.x < GameWindow.SCREEN_WIDTH - widthStop){
+			this.speedX = speedXAfter;
 		}
 		if(shootDelayCounter < shootDelay){
 			shootDelayCounter++;
@@ -34,7 +47,7 @@ public class ShootingEnemy extends Enemy{
 	}
 	
 	public void shoot(double targetX , double targetY){
-		Bullet b = new Bullet(this , 8 , targetX , targetY , 0 ,0 , Resource.bullet_lemon);
+		Bullet b = new Bullet(this , bulletSpeed , targetX , targetY , 0 ,0 , Resource.bullet_lemon);
 		RenderableHolder.getInstance().add(b);
 		GameLogic.screenObjects.add(b);
 	}

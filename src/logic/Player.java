@@ -4,12 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 
 import gui.GameScreen;
 import gui.GameWindow;
 import gui.InputUtility;
 import res.Resource;
+import sun.java2d.pipe.BufferedBufImgOps;
 
 public class Player extends Character {
 	
@@ -55,7 +58,7 @@ public class Player extends Character {
 			this.speedY = -10;
 			lastBounce = true;
 		}
-		rotateDegree++;
+		rotateDegree+= 0.03;
 		x += speedX;
 		y += speedY;
 		speedX += accelX;
@@ -107,24 +110,17 @@ public class Player extends Character {
 	@Override
 	public boolean collideWith(ScreenObject object) {
 		// TODO Auto-generated method stub
-		return Math.hypot(this.x - object.x, this.y - object.y) <= this.getImage().getWidth()/8 + object.getImage().getWidth()/2;
+		return Math.hypot(this.x+this.getImage().getWidth()/8 - object.x, this.y+this.getImage().getHeight()/2 - object.y) <= this.getImage().getWidth()/8 + object.getImage().getWidth()/2;
 	}
 
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		AffineTransform a = new AffineTransform();
 		
-		if (lastBounce)
-		{
-			
-		}
-		
-		g2d.drawImage(getImage().getSubimage(frameWidth*currentFrame, 0, frameWidth, getImage().getHeight()), null, (int)this.x, (int)this.y);
-		if (lastBounce)
-		{
-			
-		}
+		AffineTransform tx = AffineTransform.getRotateInstance(rotateDegree,this.getImage().getWidth()/8 , this.getImage().getHeight()/2);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+		g2d.drawImage(op.filter(getImage().getSubimage(frameWidth*currentFrame, 0, frameWidth, getImage().getHeight()),null), null, (int)this.x, (int)this.y);
+
 		
 	}
 }

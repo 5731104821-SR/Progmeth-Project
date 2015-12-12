@@ -91,7 +91,7 @@ public class Bullet extends ScreenObject{
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.drawImage(this.getImage(), null, (int)this.x, (int)this.y);
+		g2d.drawImage(this.getImage(), null, (int)this.x , (int)this.y);
 	}
 
 }

@@ -46,7 +46,7 @@ public class GameLogic {
 			}
 		}
 		
-		if (enemyCount > 2) {
+		if (enemyCount > 2 && !isBossAppeared) {
 			isBossAppeared = true;
 			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 ,100 , 200 , Resource.boss);
 			screenObjects.add(boss);

@@ -4,14 +4,15 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import gui.GameWindow;
+import res.RandomUtility;
 import res.Resource;
 
 public class BossEnemy extends Enemy{
 	
 	private int attackDelayCounter = 0;
 	private int attackDelay = 70;
-	private int attackDelay1 = 70;
-	private int attackDelay2 = 70;
+	private int attackDelay1 = 100;
+	private int attackDelay2 = 600;
 	private int attackDelay3 = 70;
 	private int attackDelay4 = 70;
 	private int attackType = 0; // 0 = delay, 1-5 = normal attack, 99 = wait for ultimate, 999 = ultimate
@@ -19,7 +20,7 @@ public class BossEnemy extends Enemy{
 	private int shootDelay = 0;
 	private int shootDelayCounter = 30;
 	private int shootCount = 0;
-	private int shootAmount = 30;
+	private int shootAmount = 20;
 	private int bulletY = 0;
 	private int speedChange = 85;
 	
@@ -59,7 +60,7 @@ public class BossEnemy extends Enemy{
 					RenderableHolder.getInstance().add(b);
 					GameLogic.screenObjects.add(b);
 					bulletY += speedChange;
-					bulletY %= 400;
+					if (bulletY > 400) bulletY = 0;
 					shootCount++;
 				}
 			}
@@ -67,6 +68,30 @@ public class BossEnemy extends Enemy{
 			{
 				attackType = 0; // finish attack
 			}
+		}
+		else if (attackType == 2)
+		{
+			int randAttackSpeed = (int) (Math.random() * 200) + 80;
+			Enemy e = new ShootingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -6, 0, 0, 0, 7, 10,Resource.lemon,-0.4,randAttackSpeed,270,6);
+			GameLogic.screenObjects.add(e);
+			RenderableHolder.getInstance().add(e);
+			
+			randAttackSpeed = (int) (Math.random() * 200) + 80;
+			e = new ShootingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -6, 0, 0, 0, 7, 10,Resource.lemon,-0.4,randAttackSpeed,270,6);
+			GameLogic.screenObjects.add(e);
+			RenderableHolder.getInstance().add(e);
+			
+			randAttackSpeed = (int) (Math.random() * 200) + 80;
+			e = new ShootingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -6, 0, 0, 0, 7, 10,Resource.lemon,-0.4,randAttackSpeed,270,6);
+			GameLogic.screenObjects.add(e);
+			RenderableHolder.getInstance().add(e);
+			
+			randAttackSpeed = (int) (Math.random() * 200) + 80;
+			e = new ShootingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -6, 0, 0, 0, 7, 10,Resource.lemon,-0.4,randAttackSpeed,270,6);
+			GameLogic.screenObjects.add(e);
+			RenderableHolder.getInstance().add(e);
+			
+			attackType = 0;
 		}
 	}
 	
@@ -77,23 +102,24 @@ public class BossEnemy extends Enemy{
 	
 	public void randAttack()
 	{
-		int attackRand = (int)(Math.random() * 100);
+		//int attackRand = (int)(Math.random() * 100);
+		int attackRand = 25;
 		if (attackRand < 20)
 		{
 			attackType = 1;
 			attackDelay = attackDelay1;
 			shootDelay = 0;
-			shootDelayCounter = 30;
+			shootDelayCounter = 25;
 			 
 			shootCount = 0;
-			shootAmount = 30;
+			shootAmount = 18;
 			bulletY = 0;
-			speedChange = 85;
+			speedChange = 75;
 		}
 		else if (attackRand < 40)
 		{
-			attackType = 1;
-			attackDelay = attackDelay1;
+			attackType = 2;
+			attackDelay = attackDelay2;
 		}
 		else if (attackRand < 60)
 		{
