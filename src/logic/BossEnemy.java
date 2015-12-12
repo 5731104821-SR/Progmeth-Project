@@ -52,7 +52,7 @@ public class BossEnemy extends Enemy {
 			this.speedY = -4;
 			this.rotateDegree += 0.10;
 		}
-		else if (!GameScreen.isWin)
+		else 
 		{
 			if (this.x < GameWindow.SCREEN_WIDTH - 280)
 			{
@@ -96,9 +96,8 @@ public class BossEnemy extends Enemy {
 					shootCount++;
 				}
 			} 
-		}
-		else if (attackType == 2)
-		{
+			else if (attackType == 2)
+			{
 				int randAttackSpeed = (int) (Math.random() * 200) + 80;
 				Enemy e = new ShootingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -6, 0, 0, 0, 7, 10,
 						Resource.lemon, -0.4, randAttackSpeed, 270, 6);
@@ -124,26 +123,27 @@ public class BossEnemy extends Enemy {
 				RenderableHolder.getInstance().add(e);
 
 				attackType = 0;
-		}
-		else if (attackType == 3)
-		{
-			if(shootCount < shootAmount)
+			}
+			else if (attackType == 3)
 			{
-				if (shootDelay < shootDelayCounter) shootDelay++;
+				if(shootCount < shootAmount)
+				{
+					if (shootDelay < shootDelayCounter) shootDelay++;
+					else
+					{
+						shootDelay = 0;
+						Enemy b = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0, 0, 1, Resource.bomb_size);
+						RenderableHolder.getInstance().add(b);
+						GameLogic.screenObjects.add(b);
+						bulletY += speedChange;
+						if (bulletY > 400) bulletY = 0;
+						shootCount++;
+					}
+				}
 				else
 				{
-					shootDelay = 0;
-					Enemy b = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0, 0, 1, Resource.bomb_size);
-					RenderableHolder.getInstance().add(b);
-					GameLogic.screenObjects.add(b);
-					bulletY += speedChange;
-					if (bulletY > 400) bulletY = 0;
-					shootCount++;
-				}
-			}
-			else
-			{
 				attackType = 0; // finish attack
+				}
 			}
 		}
 	}
@@ -152,13 +152,11 @@ public class BossEnemy extends Enemy {
 	public boolean collideWith(ScreenObject object) {
 		return object.x - this.x > 50 && object.x - this.x < 250 && object.y - this.y > -30 && object.y - this.y < 270;
 	}
-	
-	public void randAttack()
-	{
-		//int attackRand = (int)(Math.random() * 100);
+
+	public void randAttack() {
+		// int attackRand = (int)(Math.random() * 100);
 		int attackRand = 55;
-		if (attackRand < 20)
-		{
+		if (attackRand < 20) {
 			attackType = 1;
 			attackDelay = attackDelay1;
 			shootDelay = 0;
@@ -171,19 +169,15 @@ public class BossEnemy extends Enemy {
 		} else if (attackRand < 40) {
 			attackType = 2;
 			attackDelay = attackDelay2;
-		}
-		else if (attackRand < 60)
-		{
+		} else if (attackRand < 60) {
 			attackType = 3;
 			attackDelay = attackDelay3;
-			
+
 			shootDelay = 0;
 			shootDelayCounter = 40;
 			shootCount = 0;
 			shootAmount = 4;
-		}
-		else if (attackRand < 80)
-		{
+		} else if (attackRand < 80) {
 			attackType = 1;
 			attackDelay = attackDelay1;
 		} else {

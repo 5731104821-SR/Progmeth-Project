@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import gui.GameWindow;
+import res.Resource;
 
 public class Explosion extends Enemy {
 	
@@ -59,8 +60,7 @@ public class Explosion extends Enemy {
 		}
 		else
 		{
-			g.setColor(Color.RED);
-			g.fillOval((int)this.x, (int)this.y , 2*radius, 2*radius);
+			g.drawImage(Resource.bomb, null, (int)this.x, (int)this.y);
 		}
 	}
 	
