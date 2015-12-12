@@ -29,8 +29,9 @@ public class Bullet extends ScreenObject{
 	{
 		super(image);
 		this.shooter = shooter;
-		this.x = shooter.x;
-		this.y = shooter.y;
+		if (shooter instanceof Player) this.x = shooter.x + shooter.getImage().getWidth()/8;
+		else this.x = shooter.x + shooter.getImage().getWidth()/2;
+		this.y = shooter.y + shooter.getImage().getHeight()/2;
 		calculateSpeed(shooter.x, shooter.y, targetX, targetY, bulletSpeed, 0);
 		
 		this.accelX = accelX;
@@ -43,8 +44,9 @@ public class Bullet extends ScreenObject{
 	{
 		super(image);
 		this.shooter = shooter;
-		this.x = shooter.x;
-		this.y = shooter.y;
+		if (shooter instanceof Player) this.x = shooter.x + shooter.getImage().getWidth()/8;
+		else this.x = shooter.x + shooter.getImage().getWidth()/2;
+		this.y = shooter.y + shooter.getImage().getHeight()/2;
 		calculateSpeed(shooter.x, shooter.y, targetX, targetY, bulletSpeed, bulletAccel);
 		
 	}
@@ -89,7 +91,7 @@ public class Bullet extends ScreenObject{
 	@Override
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-		g2d.drawImage(this.getImage(), null, (int)this.x + 25, (int)this.y + 25);
+		g2d.drawImage(this.getImage(), null, (int)this.x, (int)this.y);
 	}
 
 }

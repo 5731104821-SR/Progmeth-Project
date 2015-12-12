@@ -21,6 +21,8 @@ public class GameLogic {
 	private int spawnDelayCounter = 0;
 	protected int enemyCount = 0;
 	protected boolean isBossAppeared = false;
+	
+	protected Thread bossThread;
 
 	public static GameLogic getInstance() {
 		return instance;
@@ -49,6 +51,7 @@ public class GameLogic {
 			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 ,100 , 200 , Resource.boss);
 			screenObjects.add(boss);
 			RenderableHolder.getInstance().add(boss);
+			
 			enemyCount = -1;
 		} else if (enemyCount > 30) {
 			spawnDelay = 150;
@@ -95,7 +98,7 @@ public class GameLogic {
 					screenObjects.add(e);
 					RenderableHolder.getInstance().add(e);
 				} else if (spawn == 2) {
-					Enemy e = new RushEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -1, 0, -0.15, 0, 10, 15,
+					Enemy e = new RushEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -1, 0, -0.10, 0, 5, 15,
 							Resource.carrot);
 					screenObjects.add(e);
 					RenderableHolder.getInstance().add(e);

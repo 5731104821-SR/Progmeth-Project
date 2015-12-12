@@ -44,8 +44,9 @@ public class Resource {
 				bullet_cake = ImageIO.read(loader.getResource("res/Cake.png"));
 				bullet_lemon = ImageIO.read(loader.getResource("res/Lemon_Bullet.png"));
 			} 
-			catch (IOException e) {
-				System.out.println("null");
+			catch (Exception e) {
+				//System.out.println("null");
+				e.printStackTrace();
 			}
 		}
 

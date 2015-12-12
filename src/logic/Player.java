@@ -114,8 +114,18 @@ public class Player extends Character {
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		AffineTransform a = new AffineTransform();
-		a.rotate(rotateDegree);
+		
+		if (lastBounce)
+		{
+			
+		}
+		
 		g2d.drawImage(getImage().getSubimage(frameWidth*currentFrame, 0, frameWidth, getImage().getHeight()), null, (int)this.x, (int)this.y);
+		if (lastBounce)
+		{
+			
+		}
+		
 	}
 }
 	
