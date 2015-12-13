@@ -67,26 +67,11 @@ public class Bullet extends ScreenObject{
 		double cos = (targetX - initX) / karm;
 		double sin = (initY - targetY) / karm;
 		//System.out.println("degree = " + theta);
-		if (initX < targetX)
-		{
-			this.speedX = bulletSpeed * cos;
-			this.accelX = bulletAccel * cos;
-		}
-		else
-		{
-			this.speedX = -(bulletSpeed * cos);
-			this.accelX = -bulletAccel * cos;
-		}
-		if (initX > targetX)
-		{
-			this.speedY = bulletSpeed * sin;
-			this.accelY = bulletSpeed * sin;
-		}
-		else 
-		{
-			this.speedY = -bulletSpeed * sin;
-			this.accelY = -bulletAccel * sin;
-		}
+			this.speedX = bulletSpeed * (targetX - initX) / karm;
+			this.accelX = bulletAccel * (targetX - initX) / karm;
+			this.speedY = -bulletSpeed * (initY - targetY) / karm;
+			this.accelY = -bulletSpeed * (initY - targetY) / karm;
+		
 	}
 	
 	@Override

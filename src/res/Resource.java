@@ -18,6 +18,7 @@ public class Resource {
 		public static BufferedImage tomato_angry;
 		public static BufferedImage boss;
 		public static BufferedImage boss_rage;
+		public static BufferedImage boss_rage_gold;
 		public static BufferedImage boss_dead;
 		public static BufferedImage bullet_cake;
 		public static BufferedImage bullet_lemon;
@@ -44,6 +45,7 @@ public class Resource {
 				tomato_angry = ImageIO.read(loader.getResource("res/Tomato_angry.png"));
 				boss = ImageIO.read(loader.getResource("res/Bokchoi_normal.png"));
 				boss_rage = ImageIO.read(loader.getResource("res/Bokchoi_rage.png"));
+				boss_rage_gold = ImageIO.read(loader.getResource("res/Bokchoi_rage_gold.png"));
 				boss_dead = ImageIO.read(loader.getResource("res/Bokchoi_annoy.png"));
 				bullet_cake = ImageIO.read(loader.getResource("res/Cake.png"));
 				bullet_lemon = ImageIO.read(loader.getResource("res/Lemon_Bullet.png"));

@@ -15,11 +15,15 @@ public class BossEnemy extends Enemy {
 	private int attackDelayCounter = 0;
 	private int attackDelay = 70;
 	private int attackDelay1 = 100;
-	private int attackDelay2 = 600;
-	private int attackDelay3 = 220;
+	private int attackDelay2 = 500;
+	private int attackDelay3 = 200;
 	private int attackDelay4 = 70;
+	private int attackDelay5 = 100;
 	private int attackType = 0; // 0 = delay, 1-5 = normal attack, 99 = wait for
 								// ultimate, 999 = ultimate
+	private boolean isUltimate = false; // check whether is boss already used ultimate or not
+	private int animationDelayCounter = 0; // animation delay for blinking boss
+	private int animationDelay = 15;
 
 	private int shootDelay = 0;
 	private int shootDelayCounter = 30;
@@ -27,10 +31,13 @@ public class BossEnemy extends Enemy {
 	private int shootAmount = 20;
 	private int bulletY = 0;
 	private int speedChange = 85;
+	private int multiplier = -1;
 
 	private double rotateDegree = 0;
 	private int flyDelay = 130;
 	private int flyDelayCounter = 0;
+
+	
 
 	public BossEnemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,
 			int score, BufferedImage image) {
@@ -58,6 +65,13 @@ public class BossEnemy extends Enemy {
 			{
 				this.speedX = 0;
 			}
+			if (this.hp <= this.maxHp * 2 / 10 && !isUltimate)
+			{
+				attackType = 99;
+				attackDelay = 99;
+				attackDelayCounter = 0;
+				isUltimate = true;
+			}
 			if (attackType == 0)
 			{
 				if (attackDelayCounter < attackDelay)
@@ -77,11 +91,12 @@ public class BossEnemy extends Enemy {
 					else
 					{
 						shootDelay = 0;
-						Bullet b = new Bullet(this,5,60,bulletY,0,0,Resource.bullet_lemon);
+						Bullet b = new Bullet(this,6,80,bulletY,0,0,Resource.bullet_lemon);
 						RenderableHolder.getInstance().add(b);
 						GameLogic.screenObjects.add(b);
 						bulletY += speedChange;
-						if (bulletY > 400) bulletY = 0;
+						if (bulletY > 380) bulletY = 0;
+						speedChange = (int) (Math.random() * 50) + 20;
 						shootCount++;
 					}
 				}
@@ -129,8 +144,6 @@ public class BossEnemy extends Enemy {
 						Enemy b = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0, 0, 1, Resource.bomb_size);
 						RenderableHolder.getInstance().add(b);
 						GameLogic.screenObjects.add(b);
-						bulletY += speedChange;
-						if (bulletY > 400) bulletY = 0;
 						shootCount++;
 					}
 				}
@@ -139,6 +152,72 @@ public class BossEnemy extends Enemy {
 					attackType = 0; // finish attack
 				}
 			}
+			else if (attackType == 4)
+			{
+				if(shootCount < shootAmount)
+				{
+					if (shootDelay < shootDelayCounter) shootDelay++;
+					else
+					{
+						shootDelay = 0;
+						Bullet b = new Bullet(this,6,80,bulletY,0,0,Resource.bullet_lemon);
+						RenderableHolder.getInstance().add(b);
+						GameLogic.screenObjects.add(b);
+						bulletY += speedChange;
+						if (bulletY > 380 || bulletY <= 0) multiplier *= -1; 
+						speedChange = ((int) (Math.random() * 65) + 35) * multiplier;
+						shootCount++;
+					}
+				}
+				else
+				{
+					attackType = 0;
+				}
+			}
+			else if (attackType == 5)
+			{
+				if(shootCount < shootAmount)
+				{
+					if (shootDelay < shootDelayCounter) shootDelay++;
+					else
+					{
+						shootDelay = 0;
+						Enemy b = new Explosion(GameLogic.getInstance().player.x, bulletY, 0, 0, 1, Resource.bomb_size);
+						bulletY += 30;
+						RenderableHolder.getInstance().add(b);
+						GameLogic.screenObjects.add(b);
+						shootCount++;
+					}
+				}
+				else
+				{
+					attackType = 0;
+				}
+			}
+			else if (attackType == 99)
+			{
+				if (attackDelayCounter < attackDelay)
+				{
+					attackDelayCounter++;
+					return;
+				}
+				System.out.println("ULTIMATE!");
+				attackType = 999;
+				attackDelayCounter = 0;
+			}
+			else if (attackType == 999)
+			{
+				
+			}
+		}
+	}
+	
+	@Override
+	public void hit()
+	{
+		if (!(attackType == 99 || attackType == 999))
+		{
+			super.hit();
 		}
 	}
 
@@ -148,18 +227,18 @@ public class BossEnemy extends Enemy {
 	}
 
 	public void randAttack() {
-		int attackRand = (int)(Math.random() * 100);
-		//int attackRand = 55;
+		//int attackRand = (int)(Math.random() * 100);
+		int attackRand = 95;
 		if (attackRand < 20) {
 			attackType = 1;
 			attackDelay = attackDelay1;
 			shootDelay = 0;
-			shootDelayCounter = 25;
+			shootDelayCounter = 18;
 
 			shootCount = 0;
-			shootAmount = 18;
+			shootAmount = (int)(Math.random() * 10) + 14;
 			bulletY = 0;
-			speedChange = 75;
+			speedChange = (int) (Math.random() * 70) + 20;
 		} else if (attackRand < 40) {
 			attackType = 2;
 			attackDelay = attackDelay2;
@@ -172,11 +251,26 @@ public class BossEnemy extends Enemy {
 			shootCount = 0;
 			shootAmount = 4;
 		} else if (attackRand < 80) {
-			attackType = 1;
-			attackDelay = attackDelay1;
+			attackType = 4;
+			attackDelay = attackDelay4;
+			
+			shootDelay = 0;
+			shootDelayCounter = 20;
+
+			shootCount = 0;
+			shootAmount = (int)(Math.random() * 10) + 14;
+			bulletY = 380;
+			multiplier = -1;
+			speedChange = ((int) (Math.random() * 65) + 35) * multiplier;
 		} else {
-			attackType = 1;
-			attackDelay = attackDelay1;
+			attackType = 5;
+			attackDelay = attackDelay5;
+			shootDelay = 0;
+			shootDelayCounter = 18;
+
+			shootCount = 0;
+			shootAmount = 10;
+			bulletY = 40;
 		}
 	}
 
@@ -192,6 +286,28 @@ public class BossEnemy extends Enemy {
 		if (!GameScreen.isWin) {
 			if (this.hp <= 0) {
 				g2d.drawImage(Resource.boss_dead, null, (int) this.x, (int) this.y);
+			} else if (attackType == 99 || attackType == 999) {
+				if (animationDelayCounter < animationDelay)
+				{
+					animationDelayCounter++;
+					g2d.drawImage(Resource.boss_rage, null, (int) this.x, (int) this.y);
+				}
+				else if (animationDelayCounter >= animationDelay && animationDelay == 15)
+				{
+					animationDelay = 0;
+					g2d.drawImage(Resource.boss_rage, null, (int) this.x, (int) this.y);
+				}
+				else if (animationDelayCounter > animationDelay)
+				{
+					animationDelayCounter--;
+					g2d.drawImage(Resource.boss_rage_gold, null, (int) this.x, (int) this.y);
+				}
+				else if (animationDelayCounter <= animationDelay && animationDelay == 0)
+				{
+					animationDelay = 15;
+					g2d.drawImage(Resource.boss_rage_gold, null, (int) this.x, (int) this.y);
+				}
+				
 			} else if (this.hp < maxHp / 2) {
 				g2d.drawImage(Resource.boss_rage, null, (int) this.x, (int) this.y);
 			} else {
