@@ -52,7 +52,7 @@ public class BossEnemy extends Enemy {
 			this.speedY = -4;
 			this.rotateDegree += 0.10;
 		}
-		else if (!GameScreen.isWin)
+		else 
 		{
 			if (this.x < GameWindow.SCREEN_WIDTH - 280)
 			{
@@ -146,13 +146,11 @@ public class BossEnemy extends Enemy {
 	public boolean collideWith(ScreenObject object) {
 		return object.x - this.x > 50 && object.x - this.x < 250 && object.y - this.y > -30 && object.y - this.y < 270;
 	}
-	
-	public void randAttack()
-	{
-		//int attackRand = (int)(Math.random() * 100);
-		int attackRand = 55;
-		if (attackRand < 20)
-		{
+
+	public void randAttack() {
+		int attackRand = (int)(Math.random() * 100);
+		//int attackRand = 55;
+		if (attackRand < 20) {
 			attackType = 1;
 			attackDelay = attackDelay1;
 			shootDelay = 0;
@@ -165,19 +163,15 @@ public class BossEnemy extends Enemy {
 		} else if (attackRand < 40) {
 			attackType = 2;
 			attackDelay = attackDelay2;
-		}
-		else if (attackRand < 60)
-		{
+		} else if (attackRand < 60) {
 			attackType = 3;
 			attackDelay = attackDelay3;
-			
+
 			shootDelay = 0;
 			shootDelayCounter = 40;
 			shootCount = 0;
 			shootAmount = 4;
-		}
-		else if (attackRand < 80)
-		{
+		} else if (attackRand < 80) {
 			attackType = 1;
 			attackDelay = attackDelay1;
 		} else {

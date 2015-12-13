@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import gui.GameBackground;
+import gui.GameManager;
 import gui.GameScreen;
 import gui.GameWindow;
+import gui.HighScoreUtility;
 import res.RandomUtility;
 import res.Resource;
 
@@ -13,14 +15,14 @@ public class GameLogic {
 
 	private static GameLogic instance = new GameLogic();
 	protected GameBackground gameBackground = new GameBackground();
-	public Player player = new Player(60, 60, 0, 0, 0, 0.35, 3, Resource.character);
+	public Player player;
 	public PlayerStatus status = new PlayerStatus();
 	protected BossStatus bossStatus = new BossStatus();
 	public static List<ScreenObject> screenObjects = new CopyOnWriteArrayList<>();
 	protected BossEnemy boss;
 	private int spawnDelay = 250;
 	private int spawnDelayCounter = 0;
-	private int winDelay = 200;
+	private int winDelay = 400;
 	private int winDelayCounter = 0;
 	protected int enemyCount = 0;
 	protected boolean isBossAppeared = false;
@@ -31,6 +33,11 @@ public class GameLogic {
 		return instance;
 	}
 	
+	
+	public void highScoreRecord(){
+		HighScoreUtility.recordHighScore(status.getScore());
+	}
+	
 	public static void resetInstance()
 	{
 		screenObjects.clear();
@@ -39,7 +46,7 @@ public class GameLogic {
 	}
 
 	public GameLogic() {
-		player = new Player(60, 60, 0, 0, 0, 0.25, 3, Resource.character);
+		player = new Player(60, 60, 0, 0, 0, 0.25, 10, Resource.character);
 		RenderableHolder.getInstance().add(gameBackground);
 		RenderableHolder.getInstance().add(player);
 		RenderableHolder.getInstance().add(status);
@@ -50,12 +57,32 @@ public class GameLogic {
 		gameBackground.update();
 		player.update();
 		
+		//Game Over
+		if(GameScreen.gameOverScreen){
+			if (winDelayCounter < winDelay-200) {
+				winDelayCounter++;
+				System.out.println(winDelayCounter);
+			}
+			else {
+				highScoreRecord();
+				GameManager.gotoTitle();
+			}
+		}
+				
 		//You win game 
-		if(GameScreen.isWin){
+		if(GameScreen.isWin && !GameScreen.gameOverScreen){
 			for(IRenderable object : RenderableHolder.getInstance().getRenderableList()) {
 				if(object instanceof Enemy || object instanceof Bullet){
 					((ScreenObject)object).isDestroyed = true;
 				}
+			}
+			if (winDelayCounter < winDelay) {
+				winDelayCounter++;
+				System.out.println(winDelayCounter);
+			}
+			else {
+				highScoreRecord();
+				GameManager.gotoTitle();
 			}
 		}
 		

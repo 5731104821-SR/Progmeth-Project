@@ -55,7 +55,7 @@ public class GameScreen extends JPanel{
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				if(e.getKeyCode()== KeyEvent.VK_SPACE && !InputUtility.getKeyPressed(KeyEvent.VK_SPACE) && isStart){
+				if(e.getKeyCode()== KeyEvent.VK_SPACE && !InputUtility.getKeyPressed(KeyEvent.VK_SPACE) && isStart && !gameOverScreen){
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
 					InputUtility.setKeyTriggered(e.getKeyCode(),true);
 				}
@@ -66,9 +66,6 @@ public class GameScreen extends JPanel{
 					isPaused = !isPaused;
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
 					InputUtility.setKeyTriggered(e.getKeyCode(),true);
-				}
-				if(e.getKeyCode()== KeyEvent.VK_SPACE && gameOverScreen){
-					GameManager.gotoTitle();
 				}
 			}
 		});
@@ -121,6 +118,16 @@ public class GameScreen extends JPanel{
 				InputUtility.setMouseY(e.getY());
 			}
 		});
+	}
+	
+	public void resetParameter(){
+		isStart = false;
+		isPaused = false;
+		isGameOver = false;
+		isWin = false;
+		gameOverScreen = false;
+		winDelay = 200;
+		winDelayCounter = 0;
 	}
 	
 	@Override

@@ -22,6 +22,9 @@ public class Resource {
 		public static BufferedImage bullet_cake;
 		public static BufferedImage bullet_lemon;
 		public static BufferedImage bomb_size;
+		public static BufferedImage bomb;
+		public static BufferedImage buttonImage;
+		public static BufferedImage crown;
 		public static Font titleFont = new Font("Tahoma" , Font.BOLD , 40);
 		public static Font instructionFont = new Font("Angsana NEW" , Font.BOLD , 30);
 		public static Font countDownFont = new Font("Angsana NEW" , Font.BOLD , 120);
@@ -44,7 +47,10 @@ public class Resource {
 				boss_dead = ImageIO.read(loader.getResource("res/Bokchoi_annoy.png"));
 				bullet_cake = ImageIO.read(loader.getResource("res/Cake.png"));
 				bullet_lemon = ImageIO.read(loader.getResource("res/Lemon_Bullet.png"));
-				bomb_size = ImageIO.read(loader.getResource("res/bomb_size.png")); // if you change the bomb radius you have to change image size here too
+				bomb_size = ImageIO.read(loader.getResource("res/bomb_size.png"));
+				bomb = ImageIO.read(loader.getResource("res/bomb.png"));
+				buttonImage = ImageIO.read(loader.getResource("res/Frame.png"));
+				crown = ImageIO.read(loader.getResource("res/crown.png"));// if you change the bomb radius you have to change image size here too
 			} 
 			catch (Exception e) {
 				//System.out.println("null");
