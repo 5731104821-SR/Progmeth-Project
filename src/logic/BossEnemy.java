@@ -154,8 +154,8 @@ public class BossEnemy extends Enemy {
 	}
 
 	public void randAttack() {
-		// int attackRand = (int)(Math.random() * 100);
-		int attackRand = 55;
+		int attackRand = (int)(Math.random() * 100);
+		//int attackRand = 55;
 		if (attackRand < 20) {
 			attackType = 1;
 			attackDelay = attackDelay1;
