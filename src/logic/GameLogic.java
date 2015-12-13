@@ -13,7 +13,7 @@ public class GameLogic {
 
 	private static GameLogic instance = new GameLogic();
 	protected GameBackground gameBackground = new GameBackground();
-	public Player player = new Player(60, 60, 0, 0, 0, 0.35, 3, Resource.character);
+	public Player player = new Player(60, 60, 0, 0, 0, 0, 3, Resource.character);
 	public PlayerStatus status = new PlayerStatus();
 	protected BossStatus bossStatus = new BossStatus();
 	public static List<ScreenObject> screenObjects = new CopyOnWriteArrayList<>();
@@ -39,7 +39,7 @@ public class GameLogic {
 	}
 
 	public GameLogic() {
-		player = new Player(60, 60, 0, 0, 0, 0.25, 3, Resource.character);
+		player = new Player(60, 60, 0, 0, 0, 0, 3, Resource.character);
 		RenderableHolder.getInstance().add(gameBackground);
 		RenderableHolder.getInstance().add(player);
 		RenderableHolder.getInstance().add(status);
