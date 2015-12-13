@@ -67,9 +67,6 @@ public class GameScreen extends JPanel{
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
 					InputUtility.setKeyTriggered(e.getKeyCode(),true);
 				}
-				if(e.getKeyCode()== KeyEvent.VK_SPACE && gameOverScreen){
-					GameManager.gotoTitle();
-				}
 			}
 		});
 		this.addMouseListener(new MouseListener() {
@@ -129,6 +126,8 @@ public class GameScreen extends JPanel{
 		isGameOver = false;
 		isWin = false;
 		gameOverScreen = false;
+		winDelay = 200;
+		winDelayCounter = 0;
 	}
 	
 	@Override

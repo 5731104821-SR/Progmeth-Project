@@ -38,7 +38,7 @@ public class GameManager {
 							if (gameScreen.isPaused) {
 								RenderableHolder.getInstance().getRenderableList().wait();
 							}
-							if (gameScreen.isStart && !gameScreen.isGameOver) {
+							if ((gameScreen.isStart && !gameScreen.isGameOver) || gameScreen.gameOverScreen) {
 								gameLogic.logicUpdate();
 							}
 							if (gameScreen.isGameOver) {

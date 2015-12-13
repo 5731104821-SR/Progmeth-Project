@@ -3,6 +3,7 @@ package logic;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import gui.GameScreen;
 import gui.GameWindow;
 import res.Resource;
 
@@ -23,7 +24,7 @@ public class BossStatus implements IRenderable{
 	public void draw(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 		//Do not remove if, this will cause NullPointerException
-		if(GameLogic.getInstance().isBossAppeared){
+		if(GameLogic.getInstance().isBossAppeared && !GameScreen.isWin){
 			g2d.setColor(Color.WHITE);
 			g2d.fillRect(0, 40, maxHpBar, 20);
 			g2d.setColor(Color.ORANGE);
