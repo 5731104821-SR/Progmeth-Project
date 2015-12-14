@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import logic.GameLogic;
 import logic.RenderableHolder;
+import res.Resource;
 
 public class GameManager {
 
@@ -36,12 +37,14 @@ public class GameManager {
 						synchronized (RenderableHolder.getInstance().getRenderableList()) {
 							Thread.sleep(12);
 							if (gameScreen.isPaused) {
+								Resource.stopAllBGM();
 								RenderableHolder.getInstance().getRenderableList().wait();
 							}
 							if ((gameScreen.isStart && !gameScreen.isGameOver) || gameScreen.gameOverScreen) {
 								gameLogic.logicUpdate();
 							}
 							if (gameScreen.isGameOver) {
+								Resource.stopAllBGM();
 								GameLogic.getInstance().player.gameOver();
 							}
 						}
@@ -72,6 +75,7 @@ public class GameManager {
 	public static void gotoTitle() {
 		GameLogic.resetInstance();
 		gameScreen.resetParameter();
+		Resource.stopAllBGM();
 		isEndGame = true;
 		GameManager.runGame();
 	}
