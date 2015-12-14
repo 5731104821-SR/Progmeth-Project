@@ -36,11 +36,11 @@ public class Resource {
 		public static AudioClip shoot;
 		public static AudioClip pause;
 		public static AudioClip button_select;
-		public static AudioStream titleBGM;
-		public static AudioStream playBGM;
-		public static AudioStream bossBGM;
-		public static AudioStream winBGM;
-		public static AudioStream gameoverBGM;
+		public static AudioClip titleBGM;
+		public static AudioClip playBGM;
+		public static AudioClip bossBGM;
+		public static AudioClip winBGM;
+		public static AudioClip gameoverBGM;
 		public static Font titleFont = new Font("Tahoma" , Font.BOLD , 40);
 		public static Font instructionFont = new Font("Angsana NEW" , Font.BOLD , 30);
 		public static Font countDownFont = new Font("Angsana NEW" , Font.BOLD , 120);
@@ -74,21 +74,66 @@ public class Resource {
 				shoot = Applet.newAudioClip(loader.getResource("res/shoot.wav"));
 				pause = Applet.newAudioClip(loader.getResource("res/pause.wav"));
 				button_select = Applet.newAudioClip(loader.getResource("res/button_select.wav"));
-				titleBGM = new AudioStream(loader.getResourceAsStream("res/TitleBGM.mp3"));
-				playBGM = new AudioStream(loader.getResourceAsStream("res/PlayBGM.mp3"));
-				bossBGM = new AudioStream(loader.getResourceAsStream("res/BossBattleBGM.mp3"));
-				winBGM = new AudioStream(loader.getResourceAsStream("res/win.mp3"));
-				gameoverBGM = new AudioStream(loader.getResourceAsStream("res/Gameover.mp3"));
+				titleBGM = Applet.newAudioClip(loader.getResource("res/TitleBGM.mp3"));
+				playBGM = Applet.newAudioClip(loader.getResource("res/PlayBGM.mp3"));
+				bossBGM = Applet.newAudioClip(loader.getResource("res/BossBattleBGM.mp3"));
+				winBGM = Applet.newAudioClip(loader.getResource("res/win.mp3"));
+				gameoverBGM = Applet.newAudioClip(loader.getResource("res/Gameover.mp3"));
 			} 
 			catch (Exception e) {
 				//System.out.println("null");
 				e.printStackTrace();
 			}
 		}
-		
-		public static void playBGM(AudioStream as)
+		public static void playTitleBGM()
 		{
-			AudioPlayer.player.start(as);
+			titleBGM.loop();
+			playBGM.stop();
+			bossBGM.stop();
+			winBGM.stop();
+			gameoverBGM.stop();
 		}
 
+		public static void playPlayingBGM()
+		{
+			titleBGM.stop();
+			playBGM.loop();
+			bossBGM.stop();
+			winBGM.stop();
+			gameoverBGM.stop();
+		}
+		public static void playBossBGM()
+		{
+			titleBGM.stop();
+			playBGM.stop();
+			bossBGM.loop();
+			winBGM.stop();
+			gameoverBGM.stop();
+		}
+		public static void playWinBGM()
+		{
+			titleBGM.stop();
+			playBGM.stop();
+			bossBGM.stop();
+			winBGM.loop();
+			gameoverBGM.stop();
+		}
+		public static void playGameOverBGM()
+		{
+			titleBGM.stop();
+			playBGM.stop();
+			bossBGM.stop();
+			winBGM.stop();
+			gameoverBGM.play();
+		}
+		
+		public static void stopAllBGM()
+		{
+			titleBGM.stop();
+			playBGM.stop();
+			bossBGM.stop();
+			winBGM.stop();
+			gameoverBGM.stop();
+		}
+		
 }

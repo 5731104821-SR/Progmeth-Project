@@ -64,6 +64,12 @@ public class GameScreen extends JPanel{
 					synchronized (RenderableHolder.getInstance().getRenderableList()) {
 						RenderableHolder.getInstance().getRenderableList().notifyAll();
 					}
+					if(isStart && isPaused && !GameLogic.getInstance().isBossAppeared){
+						Resource.playPlayingBGM();
+					}
+					else if(isStart && isPaused && GameLogic.getInstance().isBossAppeared){
+						Resource.playBossBGM();
+					}
 					isPaused = !isPaused;
 					Resource.pause.play();
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
@@ -157,6 +163,7 @@ public class GameScreen extends JPanel{
 			}
 			else if(startDelayCounter >= startDelay && countDownNumber==1){
 				isStart = true;
+				Resource.playPlayingBGM();
 				startDelayCounter = 0;
 				countDownNumber = 4;
 			}

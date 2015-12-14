@@ -32,7 +32,7 @@ public class GameTitle extends JPanel{
 		viewHighScore.setLocation(625 , 25);
 		viewHighScore.setSize(160, 50);
 		this.add(viewHighScore);
-		Resource.playBGM(Resource.titleBGM);
+		Resource.playTitleBGM();
         
 		
 		viewHighScore.addMouseListener(new MouseListener() {
@@ -88,6 +88,7 @@ public class GameTitle extends JPanel{
 				// TODO Auto-generated method stub
 				if(e.getKeyCode()==KeyEvent.VK_ENTER){
 					GameManager.newGame();
+					Resource.stopAllBGM();
 				}
 			}
 		});
@@ -111,6 +112,7 @@ public class GameTitle extends JPanel{
 				// TODO Auto-generated method stub
 				if(e.getKeyCode()==KeyEvent.VK_ENTER){
 					GameManager.newGame();
+					Resource.stopAllBGM();
 				}
 			}
 		});

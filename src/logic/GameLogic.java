@@ -25,7 +25,7 @@ public class GameLogic {
 	private int winDelay = 500;
 	private int winDelayCounter = 0;
 	protected int enemyCount = 0;
-	protected boolean isBossAppeared = false;
+	public boolean isBossAppeared = false;
 	
 	protected Thread bossThread;
 
@@ -91,6 +91,7 @@ public class GameLogic {
 			if (object.isDestroyed()) {
 				if(object instanceof BossEnemy) {
 					GameScreen.isWin = true;
+					Resource.playWinBGM();
 				}
 				else{
 					screenObjects.remove(object);
@@ -101,7 +102,7 @@ public class GameLogic {
 		
 		if (enemyCount > 0 && !isBossAppeared) {
 		//increase difficulty
-
+			Resource.playBossBGM();
 			isBossAppeared = true;
 			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 , 20 , 200 , Resource.boss);
 			screenObjects.add(boss);
@@ -185,4 +186,5 @@ public class GameLogic {
 			}
 		}
 	}
+
 }
