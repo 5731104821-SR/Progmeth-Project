@@ -16,7 +16,7 @@ public class BossEnemy extends Enemy {
 	private int attackDelay = 70;
 	private int attackDelay1 = 100;
 	private int attackDelay2 = 500;
-	private int attackDelay3 = 200;
+	private int attackDelay3 = 160;
 	private int attackDelay4 = 70;
 	private int attackDelay5 = 100;
 	private int attackType = 0; // 0 = delay, 1-5 = normal attack, 99 = wait for
@@ -68,7 +68,7 @@ public class BossEnemy extends Enemy {
 			if (this.hp <= this.maxHp * 2 / 10 && !isUltimate)
 			{
 				attackType = 99;
-				attackDelay = 99;
+				attackDelay = 399;
 				attackDelayCounter = 0;
 				isUltimate = true;
 			}
@@ -96,7 +96,7 @@ public class BossEnemy extends Enemy {
 						GameLogic.screenObjects.add(b);
 						bulletY += speedChange;
 						if (bulletY > 380) bulletY = 0;
-						speedChange = (int) (Math.random() * 50) + 20;
+						speedChange = (int) (int) (Math.random() * 55) + 25;
 						shootCount++;
 					}
 				}
@@ -164,7 +164,7 @@ public class BossEnemy extends Enemy {
 						RenderableHolder.getInstance().add(b);
 						GameLogic.screenObjects.add(b);
 						bulletY += speedChange;
-						if (bulletY > 380 || bulletY <= 0) multiplier *= -1; 
+						if ((bulletY >= 380 && multiplier == 1) || (bulletY <= 0 && multiplier == -1)) multiplier *= -1; 
 						speedChange = ((int) (Math.random() * 65) + 35) * multiplier;
 						shootCount++;
 					}
@@ -227,8 +227,7 @@ public class BossEnemy extends Enemy {
 	}
 
 	public void randAttack() {
-		//int attackRand = (int)(Math.random() * 100);
-		int attackRand = 95;
+		int attackRand = (int)(Math.random() * 100);
 		if (attackRand < 20) {
 			attackType = 1;
 			attackDelay = attackDelay1;
@@ -238,7 +237,7 @@ public class BossEnemy extends Enemy {
 			shootCount = 0;
 			shootAmount = (int)(Math.random() * 10) + 14;
 			bulletY = 0;
-			speedChange = (int) (Math.random() * 70) + 20;
+			speedChange = (int) (Math.random() * 55) + 25;
 		} else if (attackRand < 40) {
 			attackType = 2;
 			attackDelay = attackDelay2;
@@ -249,7 +248,7 @@ public class BossEnemy extends Enemy {
 			shootDelay = 0;
 			shootDelayCounter = 40;
 			shootCount = 0;
-			shootAmount = 4;
+			shootAmount = 6;
 		} else if (attackRand < 80) {
 			attackType = 4;
 			attackDelay = attackDelay4;

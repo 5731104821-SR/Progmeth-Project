@@ -12,7 +12,6 @@ public class Explosion extends Enemy {
 	protected boolean isExplode = false;
 	private int explodeTime = 100;
 	private int explodeCount = 0;
-	private int radius = 35;
 	
 	public Explosion(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,
 			int score, BufferedImage image) {
@@ -56,7 +55,7 @@ public class Explosion extends Enemy {
 		if (!isExplode)
 		{
 			g.setColor(Color.BLACK);
-			g.drawOval((int)this.x, (int)this.y , 2*radius, 2*radius);
+			g.drawImage(Resource.bomb_size, null, (int)this.x, (int)this.y);
 		}
 		else
 		{
