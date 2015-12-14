@@ -215,7 +215,7 @@ public class BossEnemy extends Enemy {
 	@Override
 	public void hit()
 	{
-		//if (!(attackType == 99 || attackType == 999))
+		if (!(attackType == 99 || attackType == 999))
 		{
 			super.hit();
 		}
