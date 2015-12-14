@@ -17,13 +17,14 @@ import logic.GameLogic;
 import logic.IRenderable;
 import logic.RenderableHolder;
 import res.Resource;
+import sun.audio.AudioPlayer;
 
 public class GameScreen extends JPanel{
 	
 	private int startDelayCounter = 0;
 	private final int startDelay = 30;
 	private int countDownNumber = 4;
-	private int winDelay = 200;
+	private int winDelay = 300;
 	private int winDelayCounter = 0;
 	public static boolean isStart = false;
 	public static boolean isPaused = false;
@@ -64,6 +65,7 @@ public class GameScreen extends JPanel{
 						RenderableHolder.getInstance().getRenderableList().notifyAll();
 					}
 					isPaused = !isPaused;
+					Resource.pause.play();
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
 					InputUtility.setKeyTriggered(e.getKeyCode(),true);
 				}
@@ -193,9 +195,8 @@ public class GameScreen extends JPanel{
 				winDelayCounter++;
 			}
 			else{
-				g2d.setColor(Color.PINK);
-				g2d.setFont(Resource.pauseFont);
-				g2d.drawString("YOU WIN", 200, 320);
+				g2d.drawImage(Resource.win, null, 300, 220);
+				g2d.drawImage(Resource.congrat, null, 10, 120);
 			}
 		}
 	}

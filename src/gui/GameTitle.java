@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,7 +9,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.Icon;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -27,10 +28,19 @@ public class GameTitle extends JPanel{
 		this.setPreferredSize(new Dimension(GameWindow.SCREEN_WIDTH,GameWindow.SCREEN_HEIGHT));
 		this.setLayout(null);
 		viewHighScore = new JButton(new ImageIcon(Resource.buttonImage));
-		//viewHighScore.setText("View Top 10 Score");
 		viewHighScore.setLocation(625 , 25);
 		viewHighScore.setSize(160, 50);
 		this.add(viewHighScore);
+		Clip clip;
+		try {
+			clip = AudioSystem.getClip();
+			clip.open(Resource.titleBGM);
+	        clip.start();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
 		
 		viewHighScore.addMouseListener(new MouseListener() {
 			
@@ -61,6 +71,7 @@ public class GameTitle extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
+				Resource.button_select.play();
 				HighScoreUtility.displayTop10();
 			}
 		});
@@ -128,8 +139,8 @@ public class GameTitle extends JPanel{
 		g2d.setColor(Color.BLUE);
 		g2d.setFont(Resource.instructionFont);
 		g2d.drawString("INSTRUCTION:", 320, 350);
-		g2d.drawString("PRESS \"SPACE\" FOR JUMP", 275, 380);
-		g2d.drawString("PRESS \"W\" FOR PAUSE", 290, 410);
+		g2d.drawString("PRESS \"SPACE\" FOR JUMP", 270, 380);
+		g2d.drawString("PRESS \"W\" FOR PAUSE", 285, 410);
 		g2d.drawString("LEFT MOUSE CLICK FOR SHOOT!", 230, 440);
 	}
 		
