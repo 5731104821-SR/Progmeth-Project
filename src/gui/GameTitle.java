@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import res.Resource;
+import sun.audio.AudioPlayer;
 
 public class GameTitle extends JPanel{
 	
@@ -31,15 +32,7 @@ public class GameTitle extends JPanel{
 		viewHighScore.setLocation(625 , 25);
 		viewHighScore.setSize(160, 50);
 		this.add(viewHighScore);
-		Clip clip;
-		try {
-			clip = AudioSystem.getClip();
-			clip.open(Resource.titleBGM);
-	        clip.start();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		Resource.playBGM(Resource.titleBGM);
         
 		
 		viewHighScore.addMouseListener(new MouseListener() {

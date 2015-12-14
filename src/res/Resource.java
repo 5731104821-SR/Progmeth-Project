@@ -6,11 +6,9 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.*;
 
-import com.sun.media.jfxmedia.MediaPlayer;
-
+import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
 public class Resource {
@@ -38,11 +36,11 @@ public class Resource {
 		public static AudioClip shoot;
 		public static AudioClip pause;
 		public static AudioClip button_select;
-		public static AudioInputStream titleBGM;
-		public static AudioInputStream playBGM;
-		public static AudioInputStream bossBGM;
-		public static AudioInputStream winBGM;
-		public static AudioInputStream gameoverBGM;
+		public static AudioStream titleBGM;
+		public static AudioStream playBGM;
+		public static AudioStream bossBGM;
+		public static AudioStream winBGM;
+		public static AudioStream gameoverBGM;
 		public static Font titleFont = new Font("Tahoma" , Font.BOLD , 40);
 		public static Font instructionFont = new Font("Angsana NEW" , Font.BOLD , 30);
 		public static Font countDownFont = new Font("Angsana NEW" , Font.BOLD , 120);
@@ -76,16 +74,21 @@ public class Resource {
 				shoot = Applet.newAudioClip(loader.getResource("res/shoot.wav"));
 				pause = Applet.newAudioClip(loader.getResource("res/pause.wav"));
 				button_select = Applet.newAudioClip(loader.getResource("res/button_select.wav"));
-				titleBGM = AudioSystem.getAudioInputStream(loader.getResource("res/TitleBGM.mp3"));
-				//playBGM = AudioSystem.getAudioInputStream(loader.getResource("res/PlayBGM.mp3"));
-				//bossBGM = AudioSystem.getAudioInputStream(loader.getResource("res/BossBGM.mp3"));
-				//winBGM = AudioSystem.getAudioInputStream(loader.getResource("res/win.mp3"));
-				//gameoverBGM = AudioSystem.getAudioInputStream(loader.getResource("res/Gameover.mp3"));
+				titleBGM = new AudioStream(loader.getResourceAsStream("res/TitleBGM.mp3"));
+				playBGM = new AudioStream(loader.getResourceAsStream("res/PlayBGM.mp3"));
+				bossBGM = new AudioStream(loader.getResourceAsStream("res/BossBattleBGM.mp3"));
+				winBGM = new AudioStream(loader.getResourceAsStream("res/win.mp3"));
+				gameoverBGM = new AudioStream(loader.getResourceAsStream("res/Gameover.mp3"));
 			} 
 			catch (Exception e) {
 				//System.out.println("null");
 				e.printStackTrace();
 			}
+		}
+		
+		public static void playBGM(AudioStream as)
+		{
+			AudioPlayer.player.start(as);
 		}
 
 }
