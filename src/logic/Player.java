@@ -12,6 +12,7 @@ import gui.GameScreen;
 import gui.GameWindow;
 import gui.InputUtility;
 import res.Resource;
+import sun.audio.AudioPlayer;
 import sun.java2d.pipe.BufferedBufImgOps;
 
 public class Player extends Character {
@@ -37,9 +38,12 @@ public class Player extends Character {
 	}
 	
 	public void shoot() {
-		Bullet b = new Bullet(this , 10 , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 , 0 , Resource.bullet_cake);
-		RenderableHolder.getInstance().add(b);
-		GameLogic.screenObjects.add(b);
+		if(!GameScreen.isWin){
+			Bullet b = new Bullet(this , 10 , InputUtility.getMouseX() , InputUtility.getMouseY() , 0 , 0 , Resource.bullet_cake);
+			RenderableHolder.getInstance().add(b);
+			GameLogic.screenObjects.add(b);
+			Resource.shoot.play();
+		}
 	}
 	
 	public void hit(){
@@ -84,6 +88,7 @@ public class Player extends Character {
 		{
 			this.speedY = defaultSpeedY;
 			//System.out.println("jump");
+			Resource.jump.play();
 		}
 		if (InputUtility.isMouseLeftClicked())
 		{
