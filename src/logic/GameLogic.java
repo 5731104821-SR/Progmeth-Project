@@ -22,7 +22,7 @@ public class GameLogic {
 	protected BossEnemy boss;
 	private int spawnDelay = 250;
 	private int spawnDelayCounter = 0;
-	private int winDelay = 400;
+	private int winDelay = 500;
 	private int winDelayCounter = 0;
 	protected int enemyCount = 0;
 	protected boolean isBossAppeared = false;

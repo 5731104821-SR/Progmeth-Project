@@ -1,11 +1,17 @@
 package res;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+
+import com.sun.media.jfxmedia.MediaPlayer;
+
+import sun.audio.AudioStream;
 
 public class Resource {
 	
@@ -26,6 +32,17 @@ public class Resource {
 		public static BufferedImage bomb;
 		public static BufferedImage buttonImage;
 		public static BufferedImage crown;
+		public static BufferedImage win;
+		public static BufferedImage congrat;
+		public static AudioClip jump;
+		public static AudioClip shoot;
+		public static AudioClip pause;
+		public static AudioClip button_select;
+		public static AudioInputStream titleBGM;
+		public static AudioInputStream playBGM;
+		public static AudioInputStream bossBGM;
+		public static AudioInputStream winBGM;
+		public static AudioInputStream gameoverBGM;
 		public static Font titleFont = new Font("Tahoma" , Font.BOLD , 40);
 		public static Font instructionFont = new Font("Angsana NEW" , Font.BOLD , 30);
 		public static Font countDownFont = new Font("Angsana NEW" , Font.BOLD , 120);
@@ -52,7 +69,18 @@ public class Resource {
 				bomb_size = ImageIO.read(loader.getResource("res/bomb_size.png"));
 				bomb = ImageIO.read(loader.getResource("res/bomb.png"));
 				buttonImage = ImageIO.read(loader.getResource("res/Frame.png"));
-				crown = ImageIO.read(loader.getResource("res/crown.png"));// if you change the bomb radius you have to change image size here too
+				crown = ImageIO.read(loader.getResource("res/crown.png"));
+				win = ImageIO.read(loader.getResource("res/Logo_win.png"));
+				congrat = ImageIO.read(loader.getResource("res/Congrat.png"));
+				jump = Applet.newAudioClip(loader.getResource("res/jump.wav"));
+				shoot = Applet.newAudioClip(loader.getResource("res/shoot.wav"));
+				pause = Applet.newAudioClip(loader.getResource("res/pause.wav"));
+				button_select = Applet.newAudioClip(loader.getResource("res/button_select.wav"));
+				titleBGM = AudioSystem.getAudioInputStream(loader.getResource("res/TitleBGM.mp3"));
+				//playBGM = AudioSystem.getAudioInputStream(loader.getResource("res/PlayBGM.mp3"));
+				//bossBGM = AudioSystem.getAudioInputStream(loader.getResource("res/BossBGM.mp3"));
+				//winBGM = AudioSystem.getAudioInputStream(loader.getResource("res/win.mp3"));
+				//gameoverBGM = AudioSystem.getAudioInputStream(loader.getResource("res/Gameover.mp3"));
 			} 
 			catch (Exception e) {
 				//System.out.println("null");

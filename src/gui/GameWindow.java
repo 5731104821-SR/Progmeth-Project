@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import res.Resource;
+
 public class GameWindow extends JFrame{
 
 	public static final int SCREEN_WIDTH = 800;
