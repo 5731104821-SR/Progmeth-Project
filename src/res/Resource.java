@@ -88,6 +88,7 @@ public class Resource {
 		
 		public static void playBGM(AudioStream as)
 		{
+			AudioPlayer.player.stop(Resource.titleBGM);
 			AudioPlayer.player.start(as);
 		}
 

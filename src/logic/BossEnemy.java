@@ -17,13 +17,13 @@ public class BossEnemy extends Enemy {
 	private int attackDelay1 = 100;
 	private int attackDelay2 = 500;
 	private int attackDelay3 = 160;
-	private int attackDelay4 = 70;
+	private int attackDelay4 = 300;
 	private int attackDelay5 = 100;
 	private int attackType = 0; // 0 = delay, 1-5 = normal attack, 99 = wait for
 								// ultimate, 999 = ultimate
 	private boolean isUltimate = false; // check whether is boss already used ultimate or not
 	private int animationDelayCounter = 0; // animation delay for blinking boss
-	private int animationDelay = 15;
+	private int animationDelay = 10;
 
 	private int shootDelay = 0;
 	private int shootDelayCounter = 30;
@@ -154,25 +154,27 @@ public class BossEnemy extends Enemy {
 			}
 			else if (attackType == 4)
 			{
-				if(shootCount < shootAmount)
-				{
-					if (shootDelay < shootDelayCounter) shootDelay++;
-					else
-					{
-						shootDelay = 0;
-						Bullet b = new Bullet(this,6,80,bulletY,0,0,Resource.bullet_lemon);
-						RenderableHolder.getInstance().add(b);
-						GameLogic.screenObjects.add(b);
-						bulletY += speedChange;
-						if ((bulletY >= 380 && multiplier == 1) || (bulletY <= 0 && multiplier == -1)) multiplier *= -1; 
-						speedChange = ((int) (Math.random() * 65) + 35) * multiplier;
-						shootCount++;
-					}
-				}
-				else
-				{
-					attackType = 0;
-				}
+				Enemy e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				GameLogic.screenObjects.add(e);
+				RenderableHolder.getInstance().add(e);
+				
+				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				GameLogic.screenObjects.add(e);
+				RenderableHolder.getInstance().add(e);
+				
+				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				GameLogic.screenObjects.add(e);
+				RenderableHolder.getInstance().add(e);
+				
+				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				GameLogic.screenObjects.add(e);
+				RenderableHolder.getInstance().add(e);
+				
+				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				GameLogic.screenObjects.add(e);
+				RenderableHolder.getInstance().add(e);
+				
+				attackType = 0;
 			}
 			else if (attackType == 5)
 			{
@@ -204,10 +206,44 @@ public class BossEnemy extends Enemy {
 				System.out.println("ULTIMATE!");
 				attackType = 999;
 				attackDelayCounter = 0;
+				attackDelay = 150;
+				
+				shootDelay = 0;
+				shootDelayCounter = 20;
+
+				shootCount = 0;
+				shootAmount = 99;
+				bulletY = 380;
+				multiplier = -1;
+				speedChange = ((int) (Math.random() * 65) + 40) * multiplier;
 			}
 			else if (attackType == 999)
 			{
-				
+				if(shootCount < shootAmount)
+				{
+					if (shootDelay < shootDelayCounter) shootDelay++;
+					else
+					{
+						shootDelay = 0;
+						Bullet b = new Bullet(this,6,80,bulletY,0,0,Resource.bullet_lemon);
+						RenderableHolder.getInstance().add(b);
+						GameLogic.screenObjects.add(b);
+						bulletY += speedChange;
+						if ((bulletY >= 380 && multiplier == 1) || (bulletY <= 0 && multiplier == -1)) multiplier *= -1; 
+						speedChange = ((int) (Math.random() * 65) + 40) * multiplier;
+						shootCount++;
+						if (shootCount % 7 == 6)
+						{
+							Enemy e = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0, 0, 1, Resource.bomb_size);
+							RenderableHolder.getInstance().add(e);
+							GameLogic.screenObjects.add(e);
+						}
+					}
+				}
+				else
+				{
+					attackType = 0;
+				}
 			}
 		}
 	}
@@ -253,14 +289,6 @@ public class BossEnemy extends Enemy {
 			attackType = 4;
 			attackDelay = attackDelay4;
 			
-			shootDelay = 0;
-			shootDelayCounter = 20;
-
-			shootCount = 0;
-			shootAmount = (int)(Math.random() * 10) + 14;
-			bulletY = 380;
-			multiplier = -1;
-			speedChange = ((int) (Math.random() * 65) + 35) * multiplier;
 		} else {
 			attackType = 5;
 			attackDelay = attackDelay5;
@@ -291,7 +319,7 @@ public class BossEnemy extends Enemy {
 					animationDelayCounter++;
 					g2d.drawImage(Resource.boss_rage, null, (int) this.x, (int) this.y);
 				}
-				else if (animationDelayCounter >= animationDelay && animationDelay == 15)
+				else if (animationDelayCounter >= animationDelay && animationDelay == 10)
 				{
 					animationDelay = 0;
 					g2d.drawImage(Resource.boss_rage, null, (int) this.x, (int) this.y);
@@ -303,7 +331,7 @@ public class BossEnemy extends Enemy {
 				}
 				else if (animationDelayCounter <= animationDelay && animationDelay == 0)
 				{
-					animationDelay = 15;
+					animationDelay = 10;
 					g2d.drawImage(Resource.boss_rage_gold, null, (int) this.x, (int) this.y);
 				}
 				

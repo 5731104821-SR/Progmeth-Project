@@ -122,7 +122,7 @@ public class GameLogic {
 			if(object instanceof Enemy){
 				for (ScreenObject bullet : screenObjects) {
 					if(bullet instanceof Bullet && ((Enemy) object).collideWith(bullet)){
-						if(((Bullet)bullet).shooter instanceof Player){
+						if(((Bullet)bullet).shooter instanceof Player && !((Bullet)bullet).isDestroyed){
 							((Enemy) object).hit();
 							bullet.isDestroyed = true;
 						}
