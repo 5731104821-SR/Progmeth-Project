@@ -96,7 +96,7 @@ public class BossEnemy extends Enemy {
 						GameLogic.screenObjects.add(b);
 						bulletY += speedChange;
 						if (bulletY > 380) bulletY = 0;
-						speedChange = (int) (int) (Math.random() * 55) + 25;
+						speedChange = (int) (Math.random() * 55) + 25;
 						shootCount++;
 					}
 				}
