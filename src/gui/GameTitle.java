@@ -32,8 +32,8 @@ public class GameTitle extends JPanel{
 		viewHighScore.setLocation(625 , 25);
 		viewHighScore.setSize(160, 50);
 		this.add(viewHighScore);
-		Resource.playBGM(Resource.titleBGM);
-		Resource.playBGM(Resource.playBGM);
+		//Resource.playBGM(Resource.titleBGM);
+		Resource.test.loop();
         
 		
 		viewHighScore.addMouseListener(new MouseListener() {

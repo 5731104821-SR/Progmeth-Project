@@ -41,9 +41,4 @@ public class BossStatus implements IRenderable{
 		return true;
 	}
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-	}
-
 }

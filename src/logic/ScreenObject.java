@@ -45,22 +45,7 @@ public abstract class ScreenObject implements IRenderable{
 		this.isDestroyed = false;
 		this.isVisible = true;
 	}
-	
-	public ScreenObject(double x,double y,double speedX,double speedY ,int maxHp, BufferedImage image)
-	{
-		this.image = image;
-		this.x = x;
-		this.y = y;
-		this.speedX = speedX;
-		this.speedY = speedY;
-		this.accelX = 0;
-		this.accelY = 0;
-		
-		this.maxHp = maxHp;
-		this.hp = this.maxHp;
-		this.isDestroyed = false;
-		this.isVisible = true;
-	}
+
 	
 	public ScreenObject(double x,double y,double speedX,double speedY,BufferedImage image)
 	{
@@ -69,22 +54,6 @@ public abstract class ScreenObject implements IRenderable{
 		this.y = y;
 		this.speedX = speedX;
 		this.speedY = speedY;
-		this.accelX = 0;
-		this.accelY = 0;
-		
-		this.isDestroyed = false;
-		this.isVisible = true;
-	}
-
-	
-	public ScreenObject(double x,double y,BufferedImage image)
-	{
-		// TODO Auto-generated constructor stub
-		this.image = image;
-		this.x = x;
-		this.y = y;
-		this.speedX = 0;
-		this.speedY = 0;
 		this.accelX = 0;
 		this.accelY = 0;
 		
@@ -109,16 +78,6 @@ public abstract class ScreenObject implements IRenderable{
 	public BufferedImage getImage()
 	{
 		return image;
-	}
-
-	public int getX()
-	{
-		return (int) x;
-	}
-	
-	public int getY()
-	{
-		return (int) y;
 	}
 	
 	public int getZ()

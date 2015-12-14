@@ -44,11 +44,6 @@ public class PlayerStatus implements IRenderable{
 		return true;
 	}
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-	}
-
 	public void addScore(int score){
 		this.setScore(this.getScore() + score);
 		System.out.println(this.getScore());

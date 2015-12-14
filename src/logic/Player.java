@@ -24,17 +24,15 @@ public class Player extends Character {
 	private int gameOverDelay = 0;
 	private boolean lastBounce = false; //bounce up when game over 
 	
+	private int invulDelayCounter = 200;
+	private int invulDelay = 200;
+	
 	public Player(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
 		// TODO Auto-generated constructor stub
 		this.currentFrame = 0;
 		this.frameWidth = image.getWidth()/4;
 		this.frameDelayCounter = 0;
-	}
-
-	public Player(double x, double y, double speedX, double speedY, int maxHp, BufferedImage image) {
-		super(x, y, speedX, speedY, maxHp, image);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void shoot() {
@@ -47,9 +45,14 @@ public class Player extends Character {
 	}
 	
 	public void hit(){
-		this.hp--;
-		if(this.hp==0){
-			GameScreen.isGameOver = true;
+		if (invulDelayCounter >= invulDelay)
+		{
+			this.hp--;
+			
+			if(this.hp==0){
+				GameScreen.isGameOver = true;
+			}
+			invulDelayCounter = 0;
 		}
 	}
 	
@@ -76,6 +79,7 @@ public class Player extends Character {
 	public void update()
 	{
 		super.update();
+		if (invulDelayCounter < invulDelay) invulDelayCounter++;
 		if(this.y < 40){
 			this.y = 40;
 		}
@@ -83,6 +87,7 @@ public class Player extends Character {
 			this.y = GameWindow.SCREEN_HEIGHT-100;
 			this.hp = 0;
 			GameScreen.isGameOver = true;
+			
 		}
 		if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE))
 		{
@@ -124,7 +129,7 @@ public class Player extends Character {
 		
 		AffineTransform tx = AffineTransform.getRotateInstance(rotateDegree,this.getImage().getWidth()/8 , this.getImage().getHeight()/2);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-		g2d.drawImage(op.filter(getImage().getSubimage(frameWidth*currentFrame, 0, frameWidth, getImage().getHeight()),null), null, (int)this.x, (int)this.y);
+		if (invulDelayCounter % 10 < 7) g2d.drawImage(op.filter(getImage().getSubimage(frameWidth*currentFrame, 0, frameWidth, getImage().getHeight()),null), null, (int)this.x, (int)this.y);
 
 		
 	}

@@ -8,22 +8,6 @@ public class Bullet extends ScreenObject{
 
 	protected Character shooter;
 	
-	public Bullet(double x, double y, double speedX, double speedY, double accelX, double accelY,Character shooter, double bulletSpeed , BufferedImage image) {
-		super(x, y, speedX, speedY, accelX, accelY ,image);
-		// TODO Auto-generated constructor stub
-		this.maxHp = 1;
-		this.hp = 1;
-		this.shooter = shooter;
-	}
-
-	public Bullet(double x, double y, double speedX, double speedY, Character shooter , BufferedImage image) {
-		super(x, y, speedX, speedY ,image);
-		// TODO Auto-generated constructor stub
-		this.maxHp = 1;
-		this.hp = 1;
-		this.shooter = shooter;
-	}
-	
 	public Bullet(Character shooter, double bulletSpeed, double targetX,double targetY, double accelX, double accelY , BufferedImage image) 
 	// this will shoot the bullet from shooter to target position with custom acceleration (for making parabola curve attack)
 	{

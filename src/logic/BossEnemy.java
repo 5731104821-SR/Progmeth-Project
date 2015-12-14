@@ -141,7 +141,7 @@ public class BossEnemy extends Enemy {
 					else
 					{
 						shootDelay = 0;
-						Enemy b = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0, 0, 1, Resource.bomb_size);
+						Enemy b = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0.0, 0.0, 0.0 ,0.0 , 1, 0, Resource.bomb_size);
 						RenderableHolder.getInstance().add(b);
 						GameLogic.screenObjects.add(b);
 						shootCount++;
@@ -154,23 +154,23 @@ public class BossEnemy extends Enemy {
 			}
 			else if (attackType == 4)
 			{
-				Enemy e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				Enemy e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 5, 5,Resource.tomato);
 				GameLogic.screenObjects.add(e);
 				RenderableHolder.getInstance().add(e);
 				
-				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 5, 5,Resource.tomato);
 				GameLogic.screenObjects.add(e);
 				RenderableHolder.getInstance().add(e);
 				
-				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 5, 5,Resource.tomato);
 				GameLogic.screenObjects.add(e);
 				RenderableHolder.getInstance().add(e);
 				
-				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 5, 5,Resource.tomato);
 				GameLogic.screenObjects.add(e);
 				RenderableHolder.getInstance().add(e);
 				
-				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 7, 5,Resource.tomato);
+				e = new HomingEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -2, 0, 0, 0, 5, 5,Resource.tomato);
 				GameLogic.screenObjects.add(e);
 				RenderableHolder.getInstance().add(e);
 				
@@ -184,7 +184,7 @@ public class BossEnemy extends Enemy {
 					else
 					{
 						shootDelay = 0;
-						Enemy b = new Explosion(GameLogic.getInstance().player.x, bulletY, 0, 0, 1, Resource.bomb_size);
+						Enemy b = new Explosion(GameLogic.getInstance().player.x, bulletY, 0.0, 0.0, 0.0 ,0.0 , 1, 0, Resource.bomb_size);
 						bulletY += 30;
 						RenderableHolder.getInstance().add(b);
 						GameLogic.screenObjects.add(b);
@@ -234,7 +234,7 @@ public class BossEnemy extends Enemy {
 						shootCount++;
 						if (shootCount % 7 == 6)
 						{
-							Enemy e = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0, 0, 1, Resource.bomb_size);
+							Enemy e = new Explosion(GameLogic.getInstance().player.x, GameLogic.getInstance().player.y, 0.0, 0.0, 0.0 ,0.0 , 1, 0, Resource.bomb_size);
 							RenderableHolder.getInstance().add(e);
 							GameLogic.screenObjects.add(e);
 						}

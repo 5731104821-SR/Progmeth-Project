@@ -13,14 +13,8 @@ public class Explosion extends Enemy {
 	private int explodeTime = 100;
 	private int explodeCount = 0;
 	
-	public Explosion(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,
-			int score, BufferedImage image) {
+	public Explosion(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,int score, BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, score, image);
-		// TODO Auto-generated constructor stub
-	}
-
-	public Explosion(double x, double y, double speedX, double speedY, int maxHp, BufferedImage image) {
-		super(x, y, speedX, speedY, maxHp, image);
 		// TODO Auto-generated constructor stub
 	}
 	

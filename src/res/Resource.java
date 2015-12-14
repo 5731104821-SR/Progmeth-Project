@@ -36,11 +36,14 @@ public class Resource {
 		public static AudioClip shoot;
 		public static AudioClip pause;
 		public static AudioClip button_select;
+		public static AudioClip test;
+		public static AudioClip test2;
 		public static AudioStream titleBGM;
 		public static AudioStream playBGM;
 		public static AudioStream bossBGM;
 		public static AudioStream winBGM;
 		public static AudioStream gameoverBGM;
+		public static AudioPlayer BGMPlayer;
 		public static Font titleFont = new Font("Tahoma" , Font.BOLD , 40);
 		public static Font instructionFont = new Font("Angsana NEW" , Font.BOLD , 30);
 		public static Font countDownFont = new Font("Angsana NEW" , Font.BOLD , 120);
@@ -78,7 +81,9 @@ public class Resource {
 				playBGM = new AudioStream(loader.getResourceAsStream("res/PlayBGM.mp3"));
 				bossBGM = new AudioStream(loader.getResourceAsStream("res/BossBattleBGM.mp3"));
 				winBGM = new AudioStream(loader.getResourceAsStream("res/win.mp3"));
-				gameoverBGM = new AudioStream(loader.getResourceAsStream("res/Gameover.mp3"));
+				//gameoverBGM = new AudioStream(loader.getResourceAsStream("res/Gameover.mp3"));
+				test = Applet.newAudioClip(loader.getResource("res/TitleBGM.mp3"));
+				test2 = Applet.newAudioClip(loader.getResource("res/PlayBGM.mp3"));
 			} 
 			catch (Exception e) {
 				//System.out.println("null");
@@ -88,8 +93,11 @@ public class Resource {
 		
 		public static void playBGM(AudioStream as)
 		{
-			AudioPlayer.player.stop(Resource.titleBGM);
 			AudioPlayer.player.start(as);
 		}
-
+		
+		public static void playLoop(AudioStream as)
+		{
+			AudioPlayer.player.start(as);
+		}
 }
