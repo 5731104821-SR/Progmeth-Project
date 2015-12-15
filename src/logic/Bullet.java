@@ -50,12 +50,10 @@ public class Bullet extends ScreenObject{
 		double karm = Math.hypot(initY - targetY, initX - targetX);
 		double cos = (targetX - initX) / karm;
 		double sin = (initY - targetY) / karm;
-		//System.out.println("degree = " + theta);
-			this.speedX = bulletSpeed * (targetX - initX) / karm;
-			this.accelX = bulletAccel * (targetX - initX) / karm;
-			this.speedY = -bulletSpeed * (initY - targetY) / karm;
-			this.accelY = -bulletSpeed * (initY - targetY) / karm;
-		
+		this.speedX = bulletSpeed * (targetX - initX) / karm;
+		this.accelX = bulletAccel * (targetX - initX) / karm;
+		this.speedY = -bulletSpeed * (initY - targetY) / karm;
+		this.accelY = -bulletSpeed * (initY - targetY) / karm;
 	}
 	
 	@Override
@@ -66,7 +64,6 @@ public class Bullet extends ScreenObject{
 	
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		g2d.drawImage(this.getImage(), null, (int)this.x , (int)this.y);
 	}
 

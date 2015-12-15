@@ -44,11 +44,9 @@ public class BossEnemy extends Enemy {
 	public BossEnemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp,
 			int score, BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, score, image);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void update() {
-		//
 		super.update();
 		if (GameScreen.isWin)
 		{
@@ -298,14 +296,13 @@ public class BossEnemy extends Enemy {
 			shootDelayCounter = 18;
 
 			shootCount = 0;
-			shootAmount = 10;
-			bulletY = 40;
+			shootAmount = 9;
+			bulletY = 50;
 		}
 	}
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		if (GameScreen.isWin && this.hp <= 0) {
 			AffineTransform tx = AffineTransform.getRotateInstance(rotateDegree, this.getImage().getWidth() / 2,
 					this.getImage().getHeight() / 2);
