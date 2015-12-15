@@ -45,7 +45,7 @@ public class GameLogic {
 	}
 
 	public GameLogic() {
-		player = new Player(60, 60, 0, 0, 0, 0.25, 5, Resource.character);
+		player = new Player(60, 60, 0, 0, 0, 0.25, 7, Resource.character);
 		RenderableHolder.getInstance().add(gameBackground);
 		RenderableHolder.getInstance().add(player);
 		RenderableHolder.getInstance().add(status);
