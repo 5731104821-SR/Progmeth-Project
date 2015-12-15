@@ -46,7 +46,7 @@ public class GameLogic {
 	}
 
 	public GameLogic() {
-		player = new Player(60, 60, 0, 0, 0, 0.25, 10, Resource.character);
+		player = new Player(60, 60, 0, 0, 0, 0.25, 4, Resource.character);
 		RenderableHolder.getInstance().add(gameBackground);
 		RenderableHolder.getInstance().add(player);
 		RenderableHolder.getInstance().add(status);
@@ -91,7 +91,7 @@ public class GameLogic {
 			if (object.isDestroyed()) {
 				if(object instanceof BossEnemy) {
 					GameScreen.isWin = true;
-					Resource.playWinBGM();
+					//Resource.playWinBGM();
 				}
 				else{
 					screenObjects.remove(object);
@@ -102,7 +102,7 @@ public class GameLogic {
 		
 		if (enemyCount > 0 && !isBossAppeared) {
 		//increase difficulty
-			Resource.playBossBGM();
+			//Resource.playBossBGM();
 			isBossAppeared = true;
 			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 , 20 , 200 , Resource.boss);
 			screenObjects.add(boss);
