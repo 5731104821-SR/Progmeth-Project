@@ -18,7 +18,6 @@ public class SoundRunable implements Runnable{
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		try {
 			if(prevThread != null) {
 				prevThread.join();
@@ -26,9 +25,6 @@ public class SoundRunable implements Runnable{
 			clip.loop();
 			while(true) {
 				synchronized (clip) {
-					//if(GameScreen.isPaused){
-					//	clip.wait();
-					//}
 					if(GameScreen.isGameOver){
 						Resource.stopAllBGM();
 						break;
@@ -48,5 +44,4 @@ public class SoundRunable implements Runnable{
 			e.printStackTrace();
 		}
 	}
-
 }

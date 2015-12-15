@@ -17,7 +17,7 @@ import sun.java2d.pipe.BufferedBufImgOps;
 
 public class Player extends Character {
 	
-	private final int defaultSpeedY = -7; // set it later
+	private final int defaultSpeedY = -7;
 	private double rotateDegree = 0;
 	private int currentFrame , frameWidth ,frameDelayCounter;
 	private final int frameDelay = 10;
@@ -29,7 +29,6 @@ public class Player extends Character {
 	
 	public Player(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
-		// TODO Auto-generated constructor stub
 		this.currentFrame = 0;
 		this.frameWidth = image.getWidth()/4;
 		this.frameDelayCounter = 0;
@@ -92,7 +91,6 @@ public class Player extends Character {
 		if (InputUtility.getKeyTriggered(KeyEvent.VK_SPACE))
 		{
 			this.speedY = defaultSpeedY;
-			//System.out.println("jump");
 			Resource.jump.play();
 		}
 		if (InputUtility.isMouseLeftClicked())
@@ -108,30 +106,23 @@ public class Player extends Character {
 			currentFrame = 0;
 		}
 		frameDelayCounter = 0;
-		//rotateDegree = speedY * 2; // set it later
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
 	@Override
 	public boolean collideWith(ScreenObject object) {
-		// TODO Auto-generated method stub
 		return Math.hypot(this.x+this.getImage().getWidth()/8 - object.x-object.getImage().getWidth()/2, this.y+this.getImage().getHeight()/2 - object.y-object.getImage().getHeight()/2) <= this.getImage().getWidth()/8 + object.getImage().getWidth()/2;
 	}
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		
 		AffineTransform tx = AffineTransform.getRotateInstance(rotateDegree,this.getImage().getWidth()/8 , this.getImage().getHeight()/2);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 		if (invulDelayCounter % 10 < 7) g2d.drawImage(op.filter(getImage().getSubimage(frameWidth*currentFrame, 0, frameWidth, getImage().getHeight()),null), null, (int)this.x, (int)this.y);
-
-		
 	}
 }
 	

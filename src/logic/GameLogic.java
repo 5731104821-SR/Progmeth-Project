@@ -3,7 +3,6 @@ package logic;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import gui.GameBackground;
 import gui.GameManager;
 import gui.GameScreen;
 import gui.GameWindow;
@@ -46,7 +45,7 @@ public class GameLogic {
 	}
 
 	public GameLogic() {
-		player = new Player(60, 60, 0, 0, 0, 0.25, 4, Resource.character);
+		player = new Player(60, 60, 0, 0, 0, 0.25, 5, Resource.character);
 		RenderableHolder.getInstance().add(gameBackground);
 		RenderableHolder.getInstance().add(player);
 		RenderableHolder.getInstance().add(status);
@@ -61,7 +60,6 @@ public class GameLogic {
 		if(GameScreen.gameOverScreen){
 			if (winDelayCounter < winDelay-200) {
 				winDelayCounter++;
-				System.out.println(winDelayCounter);
 			}
 			else {
 				highScoreRecord();
@@ -91,7 +89,6 @@ public class GameLogic {
 			if (object.isDestroyed()) {
 				if(object instanceof BossEnemy) {
 					GameScreen.isWin = true;
-					//Resource.playWinBGM();
 				}
 				else{
 					screenObjects.remove(object);
@@ -100,21 +97,20 @@ public class GameLogic {
 			}
 		}
 		
-		if (enemyCount > 0 && !isBossAppeared) {
+		if (enemyCount > 32 && !isBossAppeared) {
 		//increase difficulty
-			//Resource.playBossBGM();
 			isBossAppeared = true;
-			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 , 20 , 200 , Resource.boss);
+			boss = new BossEnemy(GameWindow.SCREEN_WIDTH , 130 , -2 , 0 ,0 ,0 , 250 , 200 , Resource.boss);
 			screenObjects.add(boss);
 			RenderableHolder.getInstance().add(boss);
 			
 			enemyCount = -1;
-		} else if (enemyCount > 30) {
+		} else if (enemyCount > 24) {
+			spawnDelay = 100;
+		} else if (enemyCount > 16) {
 			spawnDelay = 150;
-		} else if (enemyCount > 20) {
-			spawnDelay = 180;
-		} else if (enemyCount > 10) {
-			spawnDelay = 210;
+		} else if (enemyCount > 8) {
+			spawnDelay = 200;
 		}
 
 		//check collideWith
@@ -165,7 +161,7 @@ public class GameLogic {
 					screenObjects.add(e);
 					RenderableHolder.getInstance().add(e);
 				} else if (spawn == 2) {
-					Enemy e = new RushEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -1, 0, -0.10, 0, 5, 15,
+					Enemy e = new RushEnemy(GameWindow.SCREEN_WIDTH, RandomUtility.randomStartY(), -1, 0, -0.10, 0, 6, 15,
 							Resource.carrot);
 					screenObjects.add(e);
 					RenderableHolder.getInstance().add(e);

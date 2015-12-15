@@ -16,13 +16,11 @@ public class BossStatus implements IRenderable{
 	}
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return Integer.MAX_VALUE-1;
 	}
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
 		//Do not remove if, this will cause NullPointerException
 		if(GameLogic.getInstance().isBossAppeared && !GameScreen.isWin){
 			g2d.setColor(Color.WHITE);
@@ -37,7 +35,6 @@ public class BossStatus implements IRenderable{
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
