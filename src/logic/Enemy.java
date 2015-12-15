@@ -9,7 +9,6 @@ public abstract class Enemy extends Character{
 
 	public Enemy(double x, double y, double speedX, double speedY, double accelX, double accelY, int maxHp, int score ,BufferedImage image) {
 		super(x, y, speedX, speedY, accelX, accelY, maxHp, image);
-		// TODO Auto-generated constructor stub
 		this.score = score;
 	}
 	
@@ -23,7 +22,6 @@ public abstract class Enemy extends Character{
 		if(this.hp==0){
 			this.isDestroyed = true;
 			GameLogic.getInstance().enemyCount++;
-			//System.out.println("Enemy Count = " + GameLogic.getInstance().enemyCount);
 			GameLogic.getInstance().status.addScore(this.score);
 		}
 	}
