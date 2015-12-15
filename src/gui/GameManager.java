@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import logic.GameLogic;
 import logic.RenderableHolder;
+import logic.SoundRunable;
 import res.Resource;
 
 public class GameManager {
@@ -37,14 +38,12 @@ public class GameManager {
 						synchronized (RenderableHolder.getInstance().getRenderableList()) {
 							Thread.sleep(12);
 							if (gameScreen.isPaused) {
-								Resource.stopAllBGM();
 								RenderableHolder.getInstance().getRenderableList().wait();
 							}
 							if ((gameScreen.isStart && !gameScreen.isGameOver) || gameScreen.gameOverScreen) {
 								gameLogic.logicUpdate();
 							}
 							if (gameScreen.isGameOver) {
-								Resource.stopAllBGM();
 								GameLogic.getInstance().player.gameOver();
 							}
 						}
@@ -66,6 +65,18 @@ public class GameManager {
 			}
 		}).start();
 
+	}
+	
+	public static void playSoundThread(){
+		SoundRunable sound1 = new SoundRunable(Resource.playBGM , null);
+		Thread th1 = new Thread(sound1);
+		th1.start();
+		SoundRunable sound2 = new SoundRunable(Resource.bossBGM , th1);
+		Thread th2 = new Thread(sound2);
+		th2.start();
+		SoundRunable sound3 = new SoundRunable(Resource.winBGM , th2);
+		Thread th3 = new Thread(sound3);
+		th3.start();
 	}
 
 	public static void newGame() {
