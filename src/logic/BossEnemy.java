@@ -19,6 +19,8 @@ public class BossEnemy extends Enemy {
 	private int attackDelay3 = 160;
 	private int attackDelay4 = 300;
 	private int attackDelay5 = 100;
+	private int attackDelay99 = 399;
+	private int attackDelay999 = 150;
 	private int attackType = 0; // 0 = delay, 1-5 = normal attack, 99 = wait for
 								// ultimate, 999 = ultimate
 	private boolean isUltimate = false; // check whether is boss already used ultimate or not
@@ -68,7 +70,7 @@ public class BossEnemy extends Enemy {
 			if (this.hp <= this.maxHp * 2 / 10 && !isUltimate)
 			{
 				attackType = 99;
-				attackDelay = 399;
+				attackDelay = attackDelay99;
 				attackDelayCounter = 0;
 				isUltimate = true;
 			}
@@ -206,7 +208,7 @@ public class BossEnemy extends Enemy {
 				System.out.println("ULTIMATE!");
 				attackType = 999;
 				attackDelayCounter = 0;
-				attackDelay = 150;
+				attackDelay = attackDelay999;
 				
 				shootDelay = 0;
 				shootDelayCounter = 20;
@@ -251,7 +253,7 @@ public class BossEnemy extends Enemy {
 	@Override
 	public void hit()
 	{
-		//if (!(attackType == 99 || attackType == 999))
+		if (!(attackType == 99 || attackType == 999))
 		{
 			super.hit();
 		}
