@@ -27,7 +27,6 @@ public class GameManager {
 			// This thread is for run game without pause
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				gameLogic = GameLogic.getInstance();
 				gameTitle = new GameTitle();
 				gameScreen = new GameScreen();
@@ -59,7 +58,7 @@ public class GameManager {
 						gameWindow.repaint();
 					}
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					//not care
 					e.printStackTrace();
 				}
 			}

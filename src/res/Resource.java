@@ -40,7 +40,6 @@ public class Resource {
 		public static AudioClip playBGM;
 		public static AudioClip bossBGM;
 		public static AudioClip winBGM;
-		public static AudioClip gameoverBGM;
 		public static Font titleFont = new Font("Tahoma" , Font.BOLD , 40);
 		public static Font instructionFont = new Font("Angsana NEW" , Font.BOLD , 30);
 		public static Font countDownFont = new Font("Angsana NEW" , Font.BOLD , 120);
@@ -78,7 +77,6 @@ public class Resource {
 				playBGM = Applet.newAudioClip(loader.getResource("res/PlayBGM.mp3"));
 				bossBGM = Applet.newAudioClip(loader.getResource("res/BossBattleBGM.mp3"));
 				winBGM = Applet.newAudioClip(loader.getResource("res/win.mp3"));
-				gameoverBGM = Applet.newAudioClip(loader.getResource("res/Gameover.mp3"));
 			} 
 			catch (Exception e) {
 				//System.out.println("null");
@@ -91,49 +89,14 @@ public class Resource {
 			playBGM.stop();
 			bossBGM.stop();
 			winBGM.stop();
-			gameoverBGM.stop();
 		}
 
-		public static void playPlayingBGM()
-		{
-			titleBGM.stop();
-			playBGM.loop();
-			bossBGM.stop();
-			winBGM.stop();
-			gameoverBGM.stop();
-		}
-		public static void playBossBGM()
-		{
-			titleBGM.stop();
-			playBGM.stop();
-			bossBGM.loop();
-			winBGM.stop();
-			gameoverBGM.stop();
-		}
-		public static void playWinBGM()
-		{
-			titleBGM.stop();
-			playBGM.stop();
-			bossBGM.stop();
-			winBGM.loop();
-			gameoverBGM.stop();
-		}
-		public static void playGameOverBGM()
-		{
-			titleBGM.stop();
-			playBGM.stop();
-			bossBGM.stop();
-			winBGM.stop();
-			gameoverBGM.play();
-		}
-		
 		public static void stopAllBGM()
 		{
 			titleBGM.stop();
 			playBGM.stop();
 			bossBGM.stop();
 			winBGM.stop();
-			gameoverBGM.stop();
 		}
 		
 }

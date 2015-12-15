@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import logic.GameBackground;
 import logic.GameLogic;
 import logic.IRenderable;
 import logic.RenderableHolder;
@@ -26,36 +27,33 @@ public class GameScreen extends JPanel{
 	private int countDownNumber = 4;
 	private int winDelay = 300;
 	private int winDelayCounter = 0;
-	public static boolean isStart = false;
-	public static boolean isPaused = false;
-	public static boolean isGameOver = false;
-	public static boolean isWin = false;
-	public static boolean gameOverScreen = false;
+	public static boolean isStart;
+	public static boolean isPaused;
+	public static boolean isGameOver;
+	public static boolean isWin;
+	public static boolean gameOverScreen;
 	
 	public GameScreen() {
 		isStart = false;
 		isPaused = false;
 		isGameOver = false;
+		isWin = false;
 		gameOverScreen = false;
 		this.setPreferredSize(new Dimension(GameWindow.SCREEN_WIDTH , GameWindow.SCREEN_HEIGHT));
 		setDoubleBuffered(true);
+		
 		this.addKeyListener(new KeyListener() {
-			
 			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-			}
+			public void keyTyped(KeyEvent e) {}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
 				InputUtility.setKeyPressed(e.getKeyCode(), false);
 				InputUtility.setKeyTriggered(e.getKeyCode(),false);
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if(e.getKeyCode()== KeyEvent.VK_SPACE && !InputUtility.getKeyPressed(KeyEvent.VK_SPACE) && isStart && !gameOverScreen){
 					InputUtility.setKeyPressed(e.getKeyCode(), true);
 					InputUtility.setKeyTriggered(e.getKeyCode(),true);
@@ -71,18 +69,17 @@ public class GameScreen extends JPanel{
 				}
 			}
 		});
+		
 		this.addMouseListener(new MouseListener() {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
 				InputUtility.setMouseLeftDown(false);
 				InputUtility.setMouseLeftTriggered(false);
 			}
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
 				if(SwingUtilities.isLeftMouseButton(e) && !InputUtility.isMouseLeftDown() && isStart){
 					InputUtility.setMouseLeftDown(true);
 					InputUtility.setMouseLeftTriggered(true);
@@ -91,21 +88,18 @@ public class GameScreen extends JPanel{
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
 				InputUtility.setMouseOnScreen(false);
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
 				InputUtility.setMouseOnScreen(true);
 			}
 			
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
+			public void mouseClicked(MouseEvent e) {}
 		});
+		
 		this.addMouseMotionListener(new MouseAdapter()
 		{
 			public void mouseMoved(MouseEvent e)
